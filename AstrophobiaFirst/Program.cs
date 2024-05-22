@@ -78,6 +78,22 @@
             Console.WriteLine("You are in the hallway");
             Console.ReadLine();
         }
+        static void Reactor()
+        {
+
+        }
+        static void Bridge()
+        {
+
+        }
+        static void Storage()
+        {
+
+        }
+        static void Air()
+        {
+
+        }
         static void Finish()
         {
 
