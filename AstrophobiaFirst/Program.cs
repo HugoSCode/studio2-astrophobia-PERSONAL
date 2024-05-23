@@ -10,7 +10,18 @@
         }
         static void Mainmenu()
         {
-            Console.WriteLine("1   play\n2   levels\n3   help\n");
+            string play = "1    Play", level = "2    Levels", help = "3    Help";
+
+
+
+            Console.WriteLine("");
+            Console.WriteLine(play.PadLeft(60));
+            Console.Write("");
+            Console.WriteLine(level.PadLeft(62));
+            Console.Write("");
+            Console.WriteLine(help.PadLeft(60));
+
+
             string temp = Console.ReadLine();
             switch (temp)
             {
@@ -22,7 +33,7 @@
         }
         static void Intro()
         {
-            Console.WriteLine("This is the intro");
+            Console.WriteLine("");
         }
         static void Menu()
         {
