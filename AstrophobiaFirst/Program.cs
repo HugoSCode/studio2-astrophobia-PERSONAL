@@ -4,22 +4,21 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome");
             Mainmenu();
             Intro();
         }
         static void Mainmenu()
         {
-            string play = "1    Play", level = "2    Levels", help = "3    Help";
+            string play = "1    Play", help = "2    Help", title = "ASTROPHOBIA";
 
 
-
-            Console.WriteLine("");
-            Console.WriteLine(play.PadLeft(60));
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n");
             Console.Write("");
-            Console.WriteLine(level.PadLeft(62));
+            Console.WriteLine(title.PadLeft(65));
+            Console.Write("\n");
+            Console.WriteLine(play.PadLeft(63));
             Console.Write("");
-            Console.WriteLine(help.PadLeft(60));
+            Console.WriteLine(help.PadLeft(63));
 
 
             string temp = Console.ReadLine();
@@ -27,13 +26,79 @@
             {
                 case "play":
                 case "1":
-                    Dorm();
+                    Console.Clear();
+                    Intro();
+                    break;
+                case "help":
+                case "2":
+                    Help();
                     break;
             }
         }
+        static void Help()
+        {
+            string playerChoice;
+            Console.Clear();
+            Console.WriteLine("This is the help section, where everything you may need as you play through this game. Below you will find the Help options, which goes into specifics about the specified topic.");
+            Console.WriteLine("\n1    Commands");
+            Console.WriteLine("\nHit Enter to Go back to the Main Menu");
+            playerChoice = Console.ReadLine();
+
+            switch (playerChoice)
+            {
+                case "1":
+                case "commands":
+                case "Commands":
+                    {
+                        Console.Clear();
+                        Console.WriteLine("This page will specify globally used commands within the game:");
+                        Console.WriteLine("\nlook: This command is used to look around the room you are currently in, to help you with your surroundings, it may also show any items found in said room.");
+                        Console.WriteLine("\nleave: Used to leave the current room you are in, assuming said room is linked to the hallway.");
+                        Console.WriteLine("\npick up X: Used to pick up any items that can be found in the room you are currently in, said item is denoted by X.");
+                        Console.WriteLine("\nHit Enter to go back to the Help Options page.");
+                        Console.ReadLine();
+                        Help();
+                        break;
+                    }
+                default:
+                    {
+                        Console.Clear();
+                        Mainmenu();
+                        break;
+                    }
+            }
+
+        }
         static void Intro()
         {
-            Console.WriteLine("");
+            string playerChoice;
+
+            Console.WriteLine("There is a little bit of story, type skip if you wish to skip it, otherwise just hit enter to begin...");
+            playerChoice = Console.ReadLine();
+
+            switch (playerChoice)
+            {
+                case "skip":
+                case "SKIP":
+                case "Skip":
+                    {
+                        Console.WriteLine("You have Chosen to skip, skipping...");
+                        Thread.Sleep(1500);
+                        Console.Clear();
+                        Dorm();
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("This story takes place in the year 2197, humanity has advanced to and beyond the stars, developing FTL engines \n(Faster Than Light) And, as humanity does, it used this technology to expand their territory.\nTo give themselves places to go, to get away from Earth. Which, at the time was breaching a population of over \n50 billion. Earth alone was far from enough to sustain this population, and so many fled abord vast ships, heading for \nfaraway planets, for a second chance at life. You, happened to be aboard on of these ships...");
+                        Console.WriteLine("Hit Enter to Begin...");
+                        Console.ReadLine();
+                        Dorm();
+                        break;
+                    }
+
+            }
+               
         }
         static void Menu()
         {
