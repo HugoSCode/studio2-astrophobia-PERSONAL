@@ -120,11 +120,10 @@
                     Intro();
                     break;
                 case 3:
-                    Mainmenu();
-                    Console.WriteLine("Go to main menu ?");
+                    Mainmenu();                    
                     break;
                 case 4:
-                    Console.WriteLine("Are you sure you wish to exit");
+                    //Application.Exit(0); still working on
                     break;
             }
         }
@@ -171,7 +170,7 @@
         public static void Dorm()
         {
             int count = 0;
-            Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nlook\nleave");
+            Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nlook\nleave\nmenu");
             string temp = Console.ReadLine();
             switch (temp)
             {
@@ -182,7 +181,7 @@
                 case "leave":
                     Hall();
                     break;
-                case "menu"
+                case "menu":
                     IGmenu();
                     break;
             }
@@ -197,7 +196,7 @@
                     count++;
                     Look(ref count);
                     break;
-                case "menu"
+                case "menu":
                     IGmenu();
                     break;
             }
