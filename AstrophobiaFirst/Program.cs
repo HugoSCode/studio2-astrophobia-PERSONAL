@@ -5,32 +5,28 @@
         static void Main(string[] args)
         {
             Mainmenu();
-            Intro();
         }
         static void Mainmenu()
         {
-            string play = "1    Play", help = "2    Help", title = "ASTROPHOBIA";
-
-
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n");
-            Console.Write("");
-            Console.WriteLine(title.PadLeft(65));
-            Console.Write("\n");
-            Console.WriteLine(play.PadLeft(63));
-            Console.Write("");
-            Console.WriteLine(help.PadLeft(63));
-
+            Console.Clear();
+            Console.WriteLine("Astrophobia");
+            Console.WriteLine("1    Play");
+            Console.WriteLine("2    Help");
+            Console.WriteLine("3    Options");
+            Console.WriteLine("4    Exit");
 
             string temp = Console.ReadLine();
             switch (temp)
             {
                 case "play":
+                case "Play":
                 case "1":
                     Console.Clear();
                     Intro();
                     break;
                 case "help":
                 case "2":
+                case "Help":
                     Help();
                     break;
             }
@@ -55,6 +51,7 @@
                         Console.WriteLine("\nlook: This command is used to look around the room you are currently in, to help you with your surroundings, it may also show any items found in said room.");
                         Console.WriteLine("\nleave: Used to leave the current room you are in, assuming said room is linked to the hallway.");
                         Console.WriteLine("\npick up X: Used to pick up any items that can be found in the room you are currently in, said item is denoted by X.");
+                        Console.WriteLine("\nmenu: this command will bring up up the ingame menu, and with it, a few more options for the player, such as restarting exiting the game, going to the main menu etc...");
                         Console.WriteLine("\nHit Enter to go back to the Help Options page.");
                         Console.ReadLine();
                         Help();
@@ -167,6 +164,9 @@
             }
 
         }
+
+        //The methods below are all the rooms that will be found in this game.
+
         public static void Dorm()
         {
             int count = 0;
