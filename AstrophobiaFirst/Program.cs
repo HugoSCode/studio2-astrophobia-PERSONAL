@@ -204,7 +204,7 @@ namespace AstrophobiaFirst
                     if (inventory[1] == null)
                     {
                         Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
-
+                        Dorm(ref inventory);
                     }
                     else if (inventory[1] == "Torch")
                     {
