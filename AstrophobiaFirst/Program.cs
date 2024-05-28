@@ -1,11 +1,16 @@
 ﻿namespace AstrophobiaFirst
 {
+    public struct playerPosition
+    {
+        public string playerPos, items;
+    }
     internal class Program
     {
         static void Main(string[] args)
         {
             Mainmenu();
         }
+
         static void Mainmenu()
         {
             Console.Clear();
@@ -97,6 +102,12 @@
             }
                
         }
+        static void Inventory()
+        {
+            Console.WriteLine("Items are stored here");
+            string[] inventory = new string[9999]; 
+
+        }
         static void IGmenu()
         {
             string Border = new string('*', 42);
@@ -105,87 +116,94 @@
             Console.WriteLine("*\t\t  <Press>\t\t *");
             Console.WriteLine("* (1) To Resume   \t\t\t *\n* (2) If you wish to Restart\t\t *\n* (3) To go to the Main Menu\t\t *\n* (4) If you would like to Exit the game *");
             Console.WriteLine(Border);
-            string temp = Console.ReadLine();
-            int Input = Convert.ToInt32(temp);
+            string Input = Console.ReadLine();
             Console.WriteLine();
 
             switch (Input)
             {
-                case 1:
+                case "1":
                     break;
-                case 2:
+                case "2":
                     Intro();
                     break;
-                case 3:
-                    Mainmenu();                    
+                case "3":
+                    Mainmenu();
                     break;
-                case 4:
+                case "4":
                     //Application.Exit(0); still working on
                     break;
             }
         }
-        static void Inventory()
+        static void Look(ref int count, string room)
         {
-            Console.WriteLine("Items are stored here");
-        }
-        static void Movement()
-        {
-            Console.WriteLine("How we move around the ship");
-            int y, n, inventory, menu, look, leave;
-
-        }
-        static void Look(ref int count)
-        {
+            string currentRoom = "Dorm";
             Console.WriteLine("You have looked around the room");
-            Console.ReadLine();
-            if (count == 1)
+            if (currentRoom == "Dorm" && count == 1)
             {
+
                 string temp;
                 do
                 {
-                    Console.WriteLine("you see a torch on the ground, do you pick it up? y or n");
+                    Console.WriteLine("It is very dark in the dorm, but you manage notice a torch lying on the ground next to you, do you pick it up? y or n");
                     temp = Console.ReadLine();
                     switch (temp)
                     {
                         case "y":
-                            Console.WriteLine("You have picked up the tourch and turn it on...\n");
+                        case "Y":
+                            Console.WriteLine("You have picked up the torch and turn it on...");
                             Console.ReadLine();
+                            count++;
                             break;
                         case "n":
-                            Console.WriteLine("You desided not to pick up the tourch, but you still can't see.\nMaybe it would be better to pick it up.");
+                        case "N":
+                            Console.WriteLine("You decided not to pick up the torch, But you still cannot see.\nMaybe it would be better to pick it up...");
                             break;
                     }
                 } while (temp != "y");
 
             }
-            if (count == 2)
+            if (currentRoom == "Dorm" && count == 2)
             {
                 Console.WriteLine("There is nothing else in the room");
             }
-
         }
 
         //The methods below are all the rooms that will be found in this game.
 
         public static void Dorm()
         {
+            string currentRoom = "Dorm";
             int count = 0;
-            Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nlook\nleave\nmenu");
+            if (count == 0)
+            {
+                Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu");
+            }
+            else 
+            {
+                Console.WriteLine("You are in the Dorm");
+            }
             string temp = Console.ReadLine();
             switch (temp)
             {
                 case "look":
                     count++;
-                    Look(ref count);
+                    Look(ref count, currentRoom);
+
                     break;
                 case "leave":
-                    Hall();
+                    if (count == 0)
+                    {
+                        Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
+
+                    }
+                       
                     break;
                 case "menu":
                     IGmenu();
                     break;
             }
-            Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone? \nMaybe you will find answers if you explore outside of the room, through the door in front of you...");
+            if (count == 2) 
+            Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway...");
             string temp1 = Console.ReadLine();
             switch (temp1)
             {
@@ -194,23 +212,33 @@
                     break;
                 case "look":
                     count++;
-                    Look(ref count);
+                    Look(ref count, currentRoom);
                     break;
                 case "menu":
                     IGmenu();
                     break;
-            }
-        }
-        static void Med()
-        {
 
+            }
         }
         static void Hall()
         {
-            Console.WriteLine("You are in the hallway");
-            Console.ReadLine();
+            string temp, playerChoice;
+            Console.WriteLine("You are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nGo to X (X being whatever room you want to go into)\nMenu");
+            temp = Console.ReadLine();
+            playerChoice = temp;
+
+            switch (playerChoice)
+            {
+                case "dorm":
+                case "go to dorm":
+                case "Dorm":
+                    {
+                        Dorm();
+                        break;
+                    }
+            }
         }
-        static void Reactor()
+        static void Finish()
         {
 
         }
@@ -218,6 +246,18 @@
         {
 
         }
+
+
+
+        /*static void Med()
+        {
+
+        }
+        static void Reactor()
+        {
+
+        }
+        
         static void Storage()
         {
 
@@ -225,10 +265,7 @@
         static void Air()
         {
 
-        }
-        static void Finish()
-        {
+        }*/
 
-        }
     }
 }
