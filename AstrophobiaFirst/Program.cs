@@ -1,4 +1,7 @@
-﻿namespace AstrophobiaFirst
+﻿using System;
+using System.Threading;
+
+namespace AstrophobiaFirst
 {
     public struct playerPosition
     {
@@ -108,6 +111,8 @@
             string[] inventory = new string[9999]; 
 
         }
+        
+        // This is the "In Game" menu that can be accessed from every room, for if you wish to Exit or Restart the game etc.
         static void IGmenu()
         {
             string Border = new string('*', 42);
@@ -130,10 +135,12 @@
                     Mainmenu();
                     break;
                 case "4":
-                    //Application.Exit(0); still working on
+                    GameEnd();
                     break;
             }
         }
+       
+        // This is the starting locaion where the story begins.
         static void LookDorm(ref int count, string room)
         {
             string currentRoom = "Dorm";
@@ -220,6 +227,9 @@
 
             }
         }
+
+        // The hall will be a central location in which most other rooms can be accessed from.
+
         static void Hall()
         {
             string temp, playerChoice;
@@ -247,7 +257,7 @@
 
         }
 
-
+        // Rooms we will leave out for now but can add in or change later.
 
         /*static void Med()
         {
@@ -266,6 +276,13 @@
         {
 
         }*/
+        static void GameEnd()
+        {
+            Console.WriteLine("You have chosen to exit the game");
+            Thread.Sleep(1000);
+            Console.WriteLine("Thank you for playing, Good Bye!");
+            Thread.Sleep(1000);
+        }
 
     }
 }
