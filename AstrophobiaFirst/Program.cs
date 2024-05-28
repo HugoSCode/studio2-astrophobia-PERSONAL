@@ -134,7 +134,7 @@
                     break;
             }
         }
-        static void Look(ref int count, string room)
+        static void LookDorm(ref int count, string room)
         {
             string currentRoom = "Dorm";
             Console.WriteLine("You have looked around the room");
@@ -187,7 +187,7 @@
             {
                 case "look":
                     count++;
-                    Look(ref count, currentRoom);
+                    LookDorm(ref count, currentRoom);
 
                     break;
                 case "leave":
@@ -212,7 +212,7 @@
                     break;
                 case "look":
                     count++;
-                    Look(ref count, currentRoom);
+                    LookDorm(ref count, currentRoom);
                     break;
                 case "menu":
                     IGmenu();
