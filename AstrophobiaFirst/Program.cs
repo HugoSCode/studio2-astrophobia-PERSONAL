@@ -1,5 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Runtime.Intrinsics.X86;
 
 namespace AstrophobiaFirst
 {
@@ -7,14 +8,16 @@ namespace AstrophobiaFirst
     {
         public string playerPos, items;
     }
+
     internal class Program
     {
         static void Main(string[] args)
         {
-            Mainmenu();
+            string[] inventory = new string[99]; //Reference this throughout the whole program
+            Mainmenu(ref inventory);
         }
 
-        static void Mainmenu()
+        static void Mainmenu(ref string[] inventory)
         {
             Console.Clear();
             Console.WriteLine("Astrophobia");
@@ -30,16 +33,16 @@ namespace AstrophobiaFirst
                 case "Play":
                 case "1":
                     Console.Clear();
-                    Intro();
+                    Intro(ref inventory);
                     break;
                 case "help":
                 case "2":
                 case "Help":
-                    Help();
+                    Help(ref inventory);
                     break;
             }
         }
-        static void Help()
+        static void Help(ref string[] inventory)
         {
             string playerChoice;
             Console.Clear();
@@ -62,19 +65,19 @@ namespace AstrophobiaFirst
                         Console.WriteLine("\nmenu: this command will bring up up the ingame menu, and with it, a few more options for the player, such as restarting exiting the game, going to the main menu etc...");
                         Console.WriteLine("\nHit Enter to go back to the Help Options page.");
                         Console.ReadLine();
-                        Help();
+                        Help(ref inventory);
                         break;
                     }
                 default:
                     {
                         Console.Clear();
-                        Mainmenu();
+                        Mainmenu(ref inventory);
                         break;
                     }
             }
 
         }
-        static void Intro()
+        static void Intro(ref string[] inventory)
         {
             string playerChoice;
 
@@ -90,7 +93,7 @@ namespace AstrophobiaFirst
                         Console.WriteLine("You have Chosen to skip, skipping...");
                         Thread.Sleep(1500);
                         Console.Clear();
-                        Dorm();
+                        Dorm(ref inventory);
                         break;
                     }
                 default:
@@ -98,22 +101,19 @@ namespace AstrophobiaFirst
                         Console.WriteLine("This story takes place in the year 2197, humanity has advanced to and beyond the stars, developing FTL engines \n(Faster Than Light) And, as humanity does, it used this technology to expand their territory.\nTo give themselves places to go, to get away from Earth. Which, at the time was breaching a population of over \n50 billion. Earth alone was far from enough to sustain this population, and so many fled abord vast ships, heading for \nfaraway planets, for a second chance at life. You, happened to be aboard on of these ships...");
                         Console.WriteLine("Hit Enter to Begin...");
                         Console.ReadLine();
-                        Dorm();
+                        Dorm(ref inventory);
                         break;
                     }
 
             }
                
         }
-        static void Inventory()
+        public static void Inventory()
         {
             Console.WriteLine("Items are stored here");
-            string[] inventory = new string[9999]; 
-
+            //We have yet to use this, maybe a menu function that displays items?
         }
-        
-        // This is the "In Game" menu that can be accessed from every room, for if you wish to Exit or Restart the game etc.
-        static void IGmenu()
+        static void IGmenu(ref string[] inventory)
         {
             string Border = new string('*', 42);
             Console.WriteLine();
@@ -129,25 +129,22 @@ namespace AstrophobiaFirst
                 case "1":
                     break;
                 case "2":
-                    Intro();
+                    Intro(ref inventory);
                     break;
                 case "3":
-                    Mainmenu();
+                    Mainmenu(ref inventory);
                     break;
                 case "4":
                     GameEnd();
                     break;
             }
         }
-       
-        // This is the starting locaion where the story begins.
-        static void LookDorm(ref int count, string room)
+        static void LookDorm(ref string room, string[] inventory)
         {
             string currentRoom = "Dorm";
             Console.WriteLine("You have looked around the room");
-            if (currentRoom == "Dorm" && count == 1)
+            if (currentRoom == "Dorm" && inventory[1] == null)
             {
-
                 string temp;
                 do
                 {
@@ -157,9 +154,10 @@ namespace AstrophobiaFirst
                     {
                         case "y":
                         case "Y":
+                            inventory[1] = "Torch";
                             Console.WriteLine("You have picked up the torch and turn it on...");
                             Console.ReadLine();
-                            count++;
+                            Dorm(ref inventory);
                             break;
                         case "n":
                         case "N":
@@ -169,68 +167,78 @@ namespace AstrophobiaFirst
                 } while (temp != "y");
 
             }
-            if (currentRoom == "Dorm" && count == 2)
+            if (currentRoom == "Dorm" && inventory[1] == "Torch")
             {
-                Console.WriteLine("There is nothing else in the room");
+                Console.WriteLine("There is nothing else in the room \nPress any key...");
+                Console.ReadLine();
+                Dorm(ref inventory);
             }
         }
 
         //The methods below are all the rooms that will be found in this game.
 
-        public static void Dorm()
+        public static void Dorm(ref string[] inventory)
         {
             string currentRoom = "Dorm";
-            int count = 0;
-            if (count == 0)
+            
+            if (inventory[1] == "Torch")
+            {
+                
+                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu");
+            }
+            else
             {
                 Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu");
-            }
-            else 
-            {
-                Console.WriteLine("You are in the Dorm");
+                
             }
             string temp = Console.ReadLine();
             switch (temp)
             {
                 case "look":
-                    count++;
-                    LookDorm(ref count, currentRoom);
+                case "Look":
+                    
+                    LookDorm(ref currentRoom, inventory);
 
                     break;
                 case "leave":
-                    if (count == 0)
+                    if (inventory[1] == null)
                     {
                         Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
 
                     }
-                       
+                    else if (inventory[1] == "Torch")
+                    {
+                        Hall(ref inventory);
+                    }
                     break;
                 case "menu":
-                    IGmenu();
+                    IGmenu(ref inventory);
                     break;
+
             }
-            if (count == 2) 
-            Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway...");
+            /*if (inventory[1] == "Torch") 
+            Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu");
             string temp1 = Console.ReadLine();
             switch (temp1)
             {
                 case "leave":
-                    Hall();
+                    Hall(ref inventory);
                     break;
                 case "look":
                     count++;
-                    LookDorm(ref count, currentRoom);
+                    LookDorm(ref count, currentRoom, inventory);
                     break;
                 case "menu":
-                    IGmenu();
+                    IGmenu(ref inventory);
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input");
+                    Dorm(ref inventory);
                     break;
 
-            }
+            }*/
         }
-
-        // The hall will be a central location in which most other rooms can be accessed from.
-
-        static void Hall()
+        static void Hall(ref string[] inventory)
         {
             string temp, playerChoice;
             Console.WriteLine("You are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nGo to X (X being whatever room you want to go into)\nMenu");
@@ -243,7 +251,7 @@ namespace AstrophobiaFirst
                 case "go to dorm":
                 case "Dorm":
                     {
-                        Dorm();
+                        Dorm(ref inventory);
                         break;
                     }
             }
@@ -257,7 +265,7 @@ namespace AstrophobiaFirst
 
         }
 
-        // Rooms we will leave out for now but can add in or change later.
+
 
         /*static void Med()
         {
@@ -283,6 +291,5 @@ namespace AstrophobiaFirst
             Console.WriteLine("Thank you for playing, Good Bye!");
             Thread.Sleep(1000);
         }
-
     }
 }
