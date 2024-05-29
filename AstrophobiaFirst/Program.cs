@@ -1,19 +1,14 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Runtime.Intrinsics.X86;
+﻿using System.ComponentModel.Design;
 
 namespace AstrophobiaFirst
 {
-    public struct playerPosition
-    {
-        public string playerPos, items;
-    }
-
     internal class Program
     {
         static void Main(string[] args)
         {
             string[] inventory = new string[99]; //Reference this throughout the whole program
+            string room = "\0";
+            int dormRoomCount = 0;
             Mainmenu(ref inventory);
         }
 
@@ -79,6 +74,7 @@ namespace AstrophobiaFirst
         }
         static void Intro(ref string[] inventory)
         {
+            int dormRoomCount = 0;
             string playerChoice;
 
             Console.WriteLine("There is a little bit of story, type skip if you wish to skip it, otherwise just hit enter to begin...");
@@ -93,7 +89,7 @@ namespace AstrophobiaFirst
                         Console.WriteLine("You have Chosen to skip, skipping...");
                         Thread.Sleep(1500);
                         Console.Clear();
-                        Dorm(ref inventory);
+                        Dorm(ref inventory, dormRoomCount);
                         break;
                     }
                 default:
@@ -101,7 +97,7 @@ namespace AstrophobiaFirst
                         Console.WriteLine("This story takes place in the year 2197, humanity has advanced to and beyond the stars, developing FTL engines \n(Faster Than Light) And, as humanity does, it used this technology to expand their territory.\nTo give themselves places to go, to get away from Earth. Which, at the time was breaching a population of over \n50 billion. Earth alone was far from enough to sustain this population, and so many fled abord vast ships, heading for \nfaraway planets, for a second chance at life. You, happened to be aboard on of these ships...");
                         Console.WriteLine("Hit Enter to Begin...");
                         Console.ReadLine();
-                        Dorm(ref inventory);
+                        Dorm(ref inventory, dormRoomCount);
                         break;
                     }
 
@@ -113,8 +109,9 @@ namespace AstrophobiaFirst
             Console.WriteLine("Items are stored here");
             //We have yet to use this, maybe a menu function that displays items?
         }
-        static void IGmenu(ref string[] inventory)
+        static void IGmenu(ref string[] inventory, string room)
         {
+            int dormRoomCount = 0;
             string Border = new string('*', 42);
             Console.WriteLine();
             Console.WriteLine(Border);
@@ -127,10 +124,20 @@ namespace AstrophobiaFirst
             switch (Input)
             {
                 case "1":
+                    if (room == "Dorm")
+                    {
+                        Dorm(ref inventory, dormRoomCount);
+                    }
+                    if (room == "Hall") 
+                    {
+                        Hall(ref inventory, dormRoomCount);
+                    }
                     break;
                 case "2":
-                    Intro(ref inventory);
-                    break;
+                    {
+                        Intro(ref inventory);
+                        break;
+                    }
                 case "3":
                     Mainmenu(ref inventory);
                     break;
@@ -139,123 +146,175 @@ namespace AstrophobiaFirst
                     break;
             }
         }
-        static void LookDorm(ref string room, string[] inventory)
+        static void LookDorm(ref string[] inventory)
         {
+            int dormRoomCount = 0;
             string currentRoom = "Dorm";
-            Console.WriteLine("You have looked around the room");
-            if (currentRoom == "Dorm" && inventory[1] == null)
+            Console.WriteLine("\nYou have looked around the room");
+            if (currentRoom == "Dorm" && inventory[0] == null)
             {
                 string temp;
                 do
                 {
-                    Console.WriteLine("It is very dark in the dorm, but you manage notice a torch lying on the ground next to you, do you pick it up? y or n");
+                    Console.WriteLine("It is very dark in the dorm, but you manage notice a torch lying on the ground next to you, do you pick it up? y or n\n");
                     temp = Console.ReadLine();
                     switch (temp)
                     {
                         case "y":
                         case "Y":
-                            inventory[1] = "Torch";
-                            Console.WriteLine("You have picked up the torch and turn it on...");
+                            inventory[0] = "Torch";
+                            Console.WriteLine("You have picked up the torch and turn it on...(Press any Key)");
                             Console.ReadLine();
-                            Dorm(ref inventory);
+                            Dorm(ref inventory, dormRoomCount);
                             break;
                         case "n":
                         case "N":
                             Console.WriteLine("You decided not to pick up the torch, But you still cannot see.\nMaybe it would be better to pick it up...");
                             break;
+                        default:
+                            break;
                     }
                 } while (temp != "y");
-
             }
-            if (currentRoom == "Dorm" && inventory[1] == "Torch")
+            else if (currentRoom == "Dorm" && inventory[0] == "Torch")
             {
                 Console.WriteLine("There is nothing else in the room \nPress any key...");
                 Console.ReadLine();
-                Dorm(ref inventory);
+                Dorm(ref inventory, dormRoomCount);
             }
         }
 
         //The methods below are all the rooms that will be found in this game.
 
-        public static void Dorm(ref string[] inventory)
+        public static void Dorm(ref string[] inventory, int dormRoomCount)
         {
+            string temp = "\0";
             string currentRoom = "Dorm";
-            
-            if (inventory[1] == "Torch")
+            if (currentRoom == "Dorm" && inventory[0] == null)
             {
-                
-                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu");
+                Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu\n");
+                temp = Console.ReadLine();
             }
-            else
-            {
-                Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu");
-                
-            }
-            string temp = Console.ReadLine();
+            else { }
+
             switch (temp)
             {
                 case "look":
                 case "Look":
-                    
-                    LookDorm(ref currentRoom, inventory);
-
+                {
+                    LookDorm(ref inventory);
                     break;
+                }
+
                 case "leave":
-                    if (inventory[1] == null)
+                {
+                    if (currentRoom == "Dorm" && inventory[0] == null)
                     {
                         Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
-                        Dorm(ref inventory);
-                    }
-                    else if (inventory[1] == "Torch")
-                    {
-                        Hall(ref inventory);
+                        Dorm(ref inventory, dormRoomCount);
                     }
                     break;
+                }
                 case "menu":
-                    IGmenu(ref inventory);
+                { 
+                    IGmenu(ref inventory, currentRoom );
                     break;
+                }
 
             }
-            /*if (inventory[1] == "Torch") 
-            Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu");
-            string temp1 = Console.ReadLine();
-            switch (temp1)
+            if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount > 0)
             {
-                case "leave":
-                    Hall(ref inventory);
-                    break;
-                case "look":
-                    count++;
-                    LookDorm(ref count, currentRoom, inventory);
-                    break;
-                case "menu":
-                    IGmenu(ref inventory);
-                    break;
-                default:
-                    Console.WriteLine("Invalid Input");
-                    Dorm(ref inventory);
-                    break;
+                Console.WriteLine("You You are in the Dorm \nLook\nLeave\nMenu\n");
+                temp = Console.ReadLine();
 
-            }*/
+                switch (temp)
+                {
+                    case "look":
+                    case "Look":
+                        {
+                            LookDorm(ref inventory);
+                            break;
+                        }
+                    case "leave":
+                        {
+                            Hall(ref inventory, dormRoomCount);
+                            dormRoomCount++;
+                            break;
+                        }
+                    case "menu":
+                        {
+                            IGmenu(ref inventory, currentRoom);
+                            break;
+                        }
+                }
+            }
+            else if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount == 0)
+            {
+                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\n");
+                temp = Console.ReadLine();
+
+                switch (temp)
+                {
+                    case "look":
+                    case "Look":
+                        {
+                            LookDorm(ref inventory);
+                            break;
+                        }
+                    case "leave":
+                        Hall(ref inventory, dormRoomCount);
+                        dormRoomCount++;
+                        break;
+                    case "menu":
+                        {
+                            IGmenu(ref inventory, currentRoom);
+                            break;
+                        }
+                }
+
+                
+            }
+            else { }
         }
-        static void Hall(ref string[] inventory)
+        static void Hall(ref string[] inventory, int dormRoomCount)
         {
+            string currentRoom = "Hall";
             string temp, playerChoice;
+
             Console.WriteLine("You are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nGo to X (X being whatever room you want to go into)\nMenu");
             temp = Console.ReadLine();
             playerChoice = temp;
 
-            switch (playerChoice)
-            {
-                case "dorm":
-                case "go to dorm":
-                case "Dorm":
-                    {
-                        Dorm(ref inventory);
-                        break;
-                    }
-            }
+                switch (playerChoice)
+                {
+                    case "dorm":
+                    case "go to dorm":
+                    case "Dorm":
+                        {
+                            Dorm(ref inventory, dormRoomCount);
+                            break;
+                        }
+                    case "look":
+                    case "Look":
+                        {
+                            LookHall(ref inventory);
+                            break;
+                        }
+                    case "menu":
+                        {
+                            IGmenu(ref inventory, currentRoom);
+                            break;
+                        }
+                }
         }
+        static void LookHall(ref string[] inventory)
+        {
+            int dormRoomCount = 1;
+            Console.WriteLine("You are looking around the hall, looks very hall-y");
+            Console.ReadLine();
+            Hall(ref inventory, dormRoomCount);
+        }
+
         static void Finish()
         {
 
