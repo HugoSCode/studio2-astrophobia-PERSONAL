@@ -27,17 +27,16 @@ namespace AstrophobiaFirst
             Console.WriteLine("4    Exit");
 
             string temp = Console.ReadLine();
+            temp = temp.ToUpper();
             switch (temp)
             {
-                case "play":
-                case "Play":
+                case "PLAY":
                 case "1":
                     Console.Clear();
                     Intro(ref inventory);
                     break;
-                case "help":
                 case "2":
-                case "Help":
+                case "HELP":
                     Help(ref inventory);
                     break;
             }
@@ -50,12 +49,12 @@ namespace AstrophobiaFirst
             Console.WriteLine("\n1    Commands");
             Console.WriteLine("\nHit Enter to Go back to the Main Menu");
             playerChoice = Console.ReadLine();
+            playerChoice = playerChoice.ToUpper();
 
             switch (playerChoice)
             {
                 case "1":
-                case "commands":
-                case "Commands":
+                case "COMMANDS":
                     {
                         Console.Clear();
                         Console.WriteLine("This page will specify globally used commands within the game:");
@@ -130,12 +129,10 @@ namespace AstrophobiaFirst
 
             Console.WriteLine("There is a little bit of story, type skip if you wish to skip it, otherwise just hit enter to begin...");
             playerChoice = Console.ReadLine();
-
+            playerChoice = playerChoice.ToUpper();
             switch (playerChoice)
             {
-                case "skip":
                 case "SKIP":
-                case "Skip":
                     {
                         Console.WriteLine("You have Chosen to skip, skipping...");
                         Thread.Sleep(1500);
@@ -163,19 +160,19 @@ namespace AstrophobiaFirst
             {
                 Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
+                temp = temp.ToUpper();
             }
             else { }
 
             switch (temp)
             {
-                case "look":
-                case "Look":
+                case "LOOK":
                 {
                     LookDorm(ref inventory);
                     break;
                 }
 
-                case "leave":
+                case "LEAVE":
                 {
                     if (currentRoom == "Dorm" && inventory[0] == null)
                     {
@@ -184,60 +181,59 @@ namespace AstrophobiaFirst
                     }
                     break;
                 }
-                case "menu":
+                case "MENU":
                 { 
                     IGmenu(ref inventory, currentRoom, dormRoomCount);
                     break;
                 }
-
             }
             if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount > 0)
             {
                 Console.WriteLine("\nYou are in the Dorm \nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
-
+                temp = temp.ToUpper();
                 switch (temp)
                 {
-                    case "look":
-                    case "Look":
+                    case "LOOK":
                         {
                             LookDorm(ref inventory);
                             break;
                         }
-                    case "leave":
+                    case "LEAVE":
                         {
                             Hall(ref inventory, dormRoomCount);
                             break;
                         }
-                    case "menu":
+                    case "MENU":
                         {
                             IGmenu(ref inventory, currentRoom, dormRoomCount);
                             break;
                         }
+
                 }
             }
             else if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount == 0)
             {
                 Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
-
+                temp = temp.ToUpper();
                 switch (temp)
                 {
-                    case "look":
-                    case "Look":
+                    case "LOOK":
                         {
                             LookDorm(ref inventory);
                             break;
                         }
-                    case "leave":
+                    case "LEAVE":
                         dormRoomCount++;
                         Hall(ref inventory, dormRoomCount);
                         break;
-                    case "menu":
+                    case "MENU":
                         {
                             IGmenu(ref inventory, currentRoom, dormRoomCount);
                             break;
                         }
+
                 }
 
                 
@@ -251,24 +247,23 @@ namespace AstrophobiaFirst
 
             Console.WriteLine("You are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nGo to X (X being whatever room you want to go into)\nMenu\n");
             temp = Console.ReadLine();
+            temp = temp.ToUpper();
             playerChoice = temp;
 
                 switch (playerChoice)
                 {
-                    case "dorm":
-                    case "go to dorm":
-                    case "Dorm":
+                    case "GO TO DORM":
+                    case "DORM":
                         {
                             Dorm(ref inventory, dormRoomCount);
                             break;
                         }
-                    case "look":
-                    case "Look":
+                    case "LOOK":
                         {
                             LookHall(ref inventory);
                             break;
                         }
-                    case "menu":
+                    case "MENU":
                         {
                             IGmenu(ref inventory, currentRoom, dormRoomCount);
                             break;
@@ -343,23 +338,22 @@ namespace AstrophobiaFirst
                 {
                     Console.WriteLine("It is very dark in the dorm, but you manage notice a torch lying on the ground next to you, do you pick it up? y or n\n");
                     temp = Console.ReadLine();
+                    temp = temp.ToUpper();
                     switch (temp)
                     {
-                        case "y":
                         case "Y":
                             inventory[0] = "Torch";
                             Console.WriteLine("You have picked up the torch and turn it on...(Press any Key)");
                             Console.ReadLine();
                             Dorm(ref inventory, dormRoomCount);
                             break;
-                        case "n":
                         case "N":
                             Console.WriteLine("You decided not to pick up the torch, But you still cannot see.\nMaybe it would be better to pick it up...");
                             break;
                         default:
                             break;
                     }
-                } while (temp != "y");
+                } while (temp != "Y");
             }
             else if (currentRoom == "Dorm" && inventory[0] == "Torch")
             {
