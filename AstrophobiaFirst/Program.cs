@@ -10,7 +10,7 @@ namespace AstrophobiaFirst
             int oxygenLevel = 735;
             int reactorCore = 150;
             // Uncomment the below method to test the bridge intro
-            Bridge(oxygenLevel, reactorCore);
+            //Bridge(oxygenLevel, reactorCore);
             string[] inventory = new string[99]; //Reference this throughout the whole program
             string room = "\0";
             int dormRoomCount = 0;
