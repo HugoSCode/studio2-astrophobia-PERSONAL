@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Design;
+using System.Threading;
 
 namespace AstrophobiaFirst
 {
@@ -6,6 +7,10 @@ namespace AstrophobiaFirst
     {
         static void Main(string[] args)
         {
+            int oxygenLevel = 735;
+            int reactorCore = 150;
+            // Uncomment the below method to test the bridge intro
+            Bridge(oxygenLevel, reactorCore);
             string[] inventory = new string[99]; //Reference this throughout the whole program
             string room = "\0";
             int dormRoomCount = 0;
@@ -275,9 +280,35 @@ namespace AstrophobiaFirst
         {
 
         }
-        static void Bridge()
+        static void Bridge(int oxygenLevel, int reactorCore)
         {
+            bool BridgeIntro = false;
+            if (BridgeIntro == false)
+            {
+                Console.WriteLine("You have now entered what looks to be the main Bridge --");
+                Thread.Sleep(3000);
+                Console.WriteLine("Press Enter to Continue");
+                Console.ReadLine();
+                Thread.Sleep(2000);
+                Console.WriteLine();
+                Console.WriteLine("There seems to be power in here as all the lights and computer systems are still running");
+                Thread.Sleep(4000);
+                Console.WriteLine();
+                Console.WriteLine("You notice a console screen to your left showing information about the ships vitals... ");
+                Thread.Sleep(3000);
+                Console.WriteLine("Press Enter to Inspect");
+                Console.ReadLine();
+                ShipStats(oxygenLevel, reactorCore);
+                BridgeIntro = true;
 
+            }
+            else
+            {
+                
+
+
+
+            }
         }
 
 
@@ -345,7 +376,23 @@ namespace AstrophobiaFirst
             Console.ReadLine();
             Hall(ref inventory, dormRoomCount);
         }
+        static void ShipStats(int oxygenLevel, int reactorCore)
+        {
+            string Border = new string('*', 25);
 
+            Thread.Sleep(100);
+            Console.WriteLine(Border);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"*  OXYGEN = {oxygenLevel}/999     *");
+            Thread.Sleep(100);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"*  ENERGY = {reactorCore}/1500    *");
+            Console.ResetColor();
+            Console.WriteLine(Border);
+            Console.WriteLine("Press Enter To Exit");
+            Console.ReadLine();
+            Console.Clear();
+        }
         static void GameEnd()
         {
             Console.WriteLine("You have chosen to exit the game");
