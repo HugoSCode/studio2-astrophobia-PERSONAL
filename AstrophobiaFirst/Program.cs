@@ -9,8 +9,9 @@ namespace AstrophobiaFirst
         {
             int oxygenLevel = 735;
             int reactorCore = 150;
-            // Uncomment the below method to test the bridge intro
+            // Uncomment the below method to test the bridge intro or Systems
             //Bridge(oxygenLevel, reactorCore);
+            //ShipSystems();
             string[] inventory = new string[99]; //Reference this throughout the whole program
             string room = "\0";
             int dormRoomCount = 0;
@@ -381,7 +382,40 @@ namespace AstrophobiaFirst
         {
 
         }
+<<<<<<< HEAD
         
+=======
+        static void Bridge(int oxygenLevel, int reactorCore)
+        {
+            bool BridgeIntro = false;
+            if (BridgeIntro == false)
+            {
+                Console.WriteLine("You have now entered what looks to be the main Bridge --");
+                //Thread.Sleep(3000);
+                Console.WriteLine("Press Enter to Continue");
+                Console.ReadLine();
+                //Thread.Sleep(2000);
+                Console.WriteLine();
+                Console.WriteLine("There seems to be power in here as all the lights and computer systems are still running");
+                //Thread.Sleep(4000);
+                Console.WriteLine();
+                Console.WriteLine("You notice a console screen to your left showing information about the ships vitals... ");
+                //Thread.Sleep(3000);
+                Console.WriteLine("Press Enter to Inspect");
+                Console.ReadLine();
+                ShipStats(oxygenLevel, reactorCore);
+                BridgeIntro = true;
+
+            }
+            else
+            {
+                
+                // Nest all other code in here
+
+
+            }
+        }
+>>>>>>> b11a83b (Added padding to ship stats)
 
 
 
@@ -454,10 +488,10 @@ namespace AstrophobiaFirst
             Thread.Sleep(100);
             Console.WriteLine(Border);
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"*  OXYGEN = {oxygenLevel}/999     *");
+            Console.WriteLine($"*  OXYGEN = {oxygenLevel}/999".PadRight(24) + "*");
             Thread.Sleep(100);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"*  ENERGY = {reactorCore}/1500    *");
+            Console.WriteLine($"*  ENERGY = {reactorCore}/1500".PadRight(24) + "*");
             Console.ResetColor();
             Console.WriteLine(Border);
             Console.WriteLine("Press Enter To Exit");
@@ -465,6 +499,40 @@ namespace AstrophobiaFirst
             
             Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
 
+        }
+        static void ShipSystems()
+        {
+            string Border = new string('-', 44);
+
+            Console.WriteLine(Border);
+
+            Console.Write($"|  Long Ranged Comms".PadRight(31));
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("[Disabled]".PadRight(12));
+            Console.ResetColor();
+            Console.WriteLine("|");
+
+            Console.Write($"|  Thrusters".PadRight(31));
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("[Damaged]".PadRight(12));
+            Console.ResetColor();
+            Console.WriteLine("|");
+
+            Console.Write($"|  Reactor Core".PadRight(31));
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("[Damaged]".PadRight(12));
+            Console.ResetColor();
+            Console.WriteLine("|");
+
+            Console.Write($"|  Ai System".PadRight(31));
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[Active]".PadRight(12));
+            Console.ResetColor();
+            Console.WriteLine("|");
+
+            Console.WriteLine(Border);
+            Console.WriteLine("Press Enter To Exit");
+            Console.ReadLine();
         }
         static void GameEnd()
         {
