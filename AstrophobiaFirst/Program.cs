@@ -14,7 +14,7 @@ namespace AstrophobiaFirst
             //ShipSystems();
             string[] inventory = new string[99]; //Reference this throughout the whole program
             string room = "\0";
-            int dormRoomCount = 0;
+
             Mainmenu(ref inventory, oxygenLevel, reactorCore);
         }
 
@@ -286,7 +286,7 @@ namespace AstrophobiaFirst
             string currentRoom = "Bridge";
             string temp, playerChoice;
 
-            Console.WriteLine("You are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. There seems to be power in here as all the lights and computer systems are still running. \nIf you want to know what's wrong with the ship, the answer will surely be here.\nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
+            Console.WriteLine("You are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. There seems to be power in here as some computer lights flicker and there are beeping noises all around, it seems some parts of the ship are still working. Just like the dorm room and the hallway, the thick layer of dust on all of the controls would indicate that has not been any life here for quite some time. \nAre you truly alone floating through space… \nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
             playerChoice = temp;
@@ -295,9 +295,7 @@ namespace AstrophobiaFirst
             {
                 case "LOOK":
                     {
-                        Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens.\nPress enter to continue...");
-                        Console.ReadLine();
-                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                        LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
                         break;
                     }
                 case "SHIP STATS":
@@ -305,7 +303,9 @@ namespace AstrophobiaFirst
                 case "SHIP":
                 case "STATS":
                     {
-                        ShipStats(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                        ShipStats(ref oxygenLevel, reactorCore);
+                        ShipSystems();
+                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
                         break;
                     }
                 case "LEAVE":
@@ -400,7 +400,7 @@ namespace AstrophobiaFirst
                 //Thread.Sleep(3000);
                 Console.WriteLine("Press Enter to Inspect");
                 Console.ReadLine();
-                ShipStats(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                ShipStats(ref oxygenLevel, reactorCore);
                 BridgeIntro = true;
 
             }
@@ -468,6 +468,49 @@ namespace AstrophobiaFirst
             }
         }
 
+        static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
+        {
+            string temp;
+            Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens. \nYou spot a manual on the controls to your left. \nWhat would you like to do? \n1. Read Manual \n2. Check computer \n3. Stop looking");
+            temp = Console.ReadLine();
+            switch (temp)
+            {
+                case "1":
+                    Console.WriteLine("This does nothing right now \nPress enter");
+                    Console.ReadLine();
+                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                    break;
+                case "2":
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                    break;
+                case "3":
+                    Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                    break;
+            }
+            
+        }
+
+        static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
+        {
+            string temp;
+            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Leave computer");
+            temp = Console.ReadLine();
+            switch (temp)
+            {
+                case "1":
+                    ShipStats(ref oxygenLevel, reactorCore);
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                    break;
+                case "2":
+                    ShipSystems();
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                    break;
+                case "3":
+                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                    break;
+            }
+        }
+
         static void LookHall(ref string[] inventory, int oxygenLevel, int reactorCore)
         {
             int dormRoomCount = 1;
@@ -475,7 +518,7 @@ namespace AstrophobiaFirst
             Console.ReadLine();
             Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
         }
-        static void ShipStats(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
+        static void ShipStats(ref int oxygenLevel, int reactorCore)
         {
             string Border = new string('*', 25);
 
@@ -491,7 +534,7 @@ namespace AstrophobiaFirst
             Console.WriteLine("Press Enter To Exit");
             Console.ReadLine();
 
-            Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+            //Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
 
         }
         static void ShipSystems()
