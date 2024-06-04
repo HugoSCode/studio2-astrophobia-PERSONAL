@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.Design;
-using System.Threading;
+﻿using System.Threading;
+using System;
 
 namespace AstrophobiaFirst
 {
@@ -76,8 +76,8 @@ namespace AstrophobiaFirst
                     }
             }
 
-        
-               
+
+
         }
         public static void Inventory()
         {
@@ -102,7 +102,7 @@ namespace AstrophobiaFirst
                     {
                         Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
                     }
-                    if (currentRoom == "Hall") 
+                    if (currentRoom == "Hall")
                     {
                         Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
                     }
@@ -172,25 +172,25 @@ namespace AstrophobiaFirst
             switch (temp)
             {
                 case "LOOK":
-                {
-                    LookDorm(ref inventory, oxygenLevel, reactorCore);
-                    break;
-                }
+                    {
+                        LookDorm(ref inventory, oxygenLevel, reactorCore);
+                        break;
+                    }
 
                 case "LEAVE":
-                {
-                    if (currentRoom == "Dorm" && inventory[0] == null)
                     {
-                        Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
-                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                        if (currentRoom == "Dorm" && inventory[0] == null)
+                        {
+                            Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "MENU":
-                { 
-                    IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
-                    break;
-                }
+                    {
+                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
+                        break;
+                    }
             }
             if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount > 0)
             {
@@ -241,7 +241,7 @@ namespace AstrophobiaFirst
 
                 }
 
-                
+
             }
             else { }
         }
@@ -255,31 +255,31 @@ namespace AstrophobiaFirst
             temp = temp.ToUpper();
             playerChoice = temp;
 
-                switch (playerChoice)
-                {
-                    case "GO TO DORM":
-                    case "DORM":
-                        {
-                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
-                            break;
-                        }
-                    case "GO TO BRIDGE":
-                    case "BRIDGE":
-                        {
-                            Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
-                            break;
-                        }
-                    case "LOOK":
-                        {
-                            LookHall(ref inventory, oxygenLevel, reactorCore);
-                            break;
-                        }
-                    case "MENU":
-                        {
-                            IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
-                            break;
-                        }
-                }
+            switch (playerChoice)
+            {
+                case "GO TO DORM":
+                case "DORM":
+                    {
+                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                        break;
+                    }
+                case "GO TO BRIDGE":
+                case "BRIDGE":
+                    {
+                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
+                        break;
+                    }
+                case "LOOK":
+                    {
+                        LookHall(ref inventory, oxygenLevel, reactorCore);
+                        break;
+                    }
+                case "MENU":
+                    {
+                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
+                        break;
+                    }
+            }
         }
         static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
         {
@@ -382,10 +382,7 @@ namespace AstrophobiaFirst
         {
 
         }
-<<<<<<< HEAD
-        
-=======
-        static void Bridge(int oxygenLevel, int reactorCore)
+        static void Bridge(ref string[] inventory, ref int dormRoomCount, ref int oxygenLevel, ref int reactorCore)
         {
             bool BridgeIntro = false;
             if (BridgeIntro == false)
@@ -403,22 +400,19 @@ namespace AstrophobiaFirst
                 //Thread.Sleep(3000);
                 Console.WriteLine("Press Enter to Inspect");
                 Console.ReadLine();
-                ShipStats(oxygenLevel, reactorCore);
+                ShipStats(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
                 BridgeIntro = true;
 
             }
             else
             {
-                
+
                 // Nest all other code in here
 
 
             }
         }
->>>>>>> b11a83b (Added padding to ship stats)
-
-
-
+        //b11a83b (Added padding to ship stats)
         /*static void Med()
         {
 
@@ -496,7 +490,7 @@ namespace AstrophobiaFirst
             Console.WriteLine(Border);
             Console.WriteLine("Press Enter To Exit");
             Console.ReadLine();
-            
+
             Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
 
         }
@@ -536,10 +530,12 @@ namespace AstrophobiaFirst
         }
         static void GameEnd()
         {
+
             Console.WriteLine("You have chosen to exit the game");
             Thread.Sleep(1000);
-            Console.WriteLine("Thank you for playing, Good Bye!");
+            Console.WriteLine("Thank you for playing, Goodbye!");
             Thread.Sleep(1000);
+            Environment.Exit(0);
         }
     }
 }
