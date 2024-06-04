@@ -9,15 +9,12 @@ namespace AstrophobiaFirst
         {
             int oxygenLevel = 735;
             int reactorCore = 150;
-            // Uncomment the below method to test the bridge intro or Systems
-            //Bridge(oxygenLevel, reactorCore);
-            //ShipSystems();
+            
             string[] inventory = new string[99]; //Reference this throughout the whole program
             string room = "\0";
 
             Mainmenu(ref inventory, oxygenLevel, reactorCore);
         }
-
         static void Mainmenu(ref string[] inventory, int oxygenLevel, int reactorCore)
         {
             Console.Clear();
@@ -75,9 +72,6 @@ namespace AstrophobiaFirst
                         break;
                     }
             }
-
-
-
         }
         public static void Inventory()
         {
@@ -124,7 +118,6 @@ namespace AstrophobiaFirst
                     break;
             }
         }
-
         //The methods below are all the rooms that will be found in this game.
 
         static void Intro(ref string[] inventory, int oxygenLevel, int reactorCore)
@@ -156,7 +149,6 @@ namespace AstrophobiaFirst
 
             }
         }
-
         public static void Dorm(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
         {
             string temp = "\0";
@@ -176,7 +168,6 @@ namespace AstrophobiaFirst
                         LookDorm(ref inventory, oxygenLevel, reactorCore);
                         break;
                     }
-
                 case "LEAVE":
                     {
                         if (currentRoom == "Dorm" && inventory[0] == null)
@@ -214,7 +205,6 @@ namespace AstrophobiaFirst
                             IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
                             break;
                         }
-
                 }
             }
             else if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount == 0)
@@ -238,10 +228,7 @@ namespace AstrophobiaFirst
                             IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
                             break;
                         }
-
                 }
-
-
             }
             else { }
         }
@@ -377,7 +364,6 @@ namespace AstrophobiaFirst
                         }*/
             }
         }
-
         static void Finish()
         {
 
@@ -406,31 +392,10 @@ namespace AstrophobiaFirst
             }
             else
             {
-
                 // Nest all other code in here
-
-
             }
         }
-        //b11a83b (Added padding to ship stats)
-        /*static void Med()
-        {
-
-        }
-        static void Reactor()
-        {
-
-        }
-        
-        static void Storage()
-        {
-
-        }
-        static void Air()
-        {
-
-        }*/
-
+        //
         static void LookDorm(ref string[] inventory, int oxygenLevel, int reactorCore)
         {
             int dormRoomCount = 0;
@@ -467,7 +432,6 @@ namespace AstrophobiaFirst
                 Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
             }
         }
-
         static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
         {
             string temp;
@@ -486,10 +450,8 @@ namespace AstrophobiaFirst
                 case "3":
                     Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
                     break;
-            }
-            
+            }           
         }
-
         static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore)
         {
             string temp;
@@ -510,7 +472,6 @@ namespace AstrophobiaFirst
                     break;
             }
         }
-
         static void LookHall(ref string[] inventory, int oxygenLevel, int reactorCore)
         {
             int dormRoomCount = 1;
@@ -535,7 +496,6 @@ namespace AstrophobiaFirst
             Console.ReadLine();
 
             //Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
-
         }
         static void ShipSystems()
         {
@@ -573,12 +533,12 @@ namespace AstrophobiaFirst
         }
         static void GameEnd()
         {
-
             Console.WriteLine("You have chosen to exit the game");
             Thread.Sleep(1000);
             Console.WriteLine("Thank you for playing, Goodbye!");
             Thread.Sleep(1000);
             Environment.Exit(0);
         }
+        // Rooms not yet in game or may not be needed - Med, Reactor, Storage, Airlock
     }
 }
