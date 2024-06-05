@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System;
+using System.ComponentModel.Design;
 
 namespace AstrophobiaFirst
 {
@@ -561,6 +562,92 @@ namespace AstrophobiaFirst
             Console.WriteLine(Border);
             Console.WriteLine("Press Enter To Exit");
             Console.ReadLine();
+        }
+        //Task 1 is for within the bridge/within the main computer
+        public static void Task1()
+        {
+
+        }
+        //Task 2 is for Engine/operation room once added
+        public static void Task2()
+        {
+
+        }
+        //Task 3 is for in the oxygen room once that has been made
+        public static void Task3()
+        {
+            Console.WriteLine("You will be given a sequence of numbers to remember");
+            string temp;
+            char answer;
+            int number = 1;
+            do
+            {
+                Console.WriteLine("\nAre you ready: y or n");
+                temp = Console.ReadLine();
+                answer = Convert.ToChar(temp);
+            } while ((answer != 'y') && (answer != 'n'));
+            Console.WriteLine("Thank you.");
+            Thread.Sleep(1000);
+            Console.Clear();
+
+            int count = 0, num1, num2;
+            Random rand = new Random();
+            num1 = rand.Next(1, 101);
+            Console.WriteLine("\nThe code is a number between 1-100, but you can't remember it.\nYou will have to guess quickly to find the answer before you black out\nYou should get at least 6 guesses.");
+            do
+            {
+                Console.Write("\nPlease type a number:  ");
+                temp = Console.ReadLine();
+                num2 = Convert.ToInt32(temp);
+                if (num2 > num1)
+                {
+                    Console.WriteLine("The number you are looking for is smaller then this");
+                }
+                if (num2 < num1)
+                {
+                    Console.WriteLine("The number you are looking for is larger then this");
+                }
+                else
+                {
+                    Console.WriteLine("Correct code entered");
+                }
+                count++;
+                if (count >= 6)
+                {
+                    Console.WriteLine("Oxygen Levels are critical");
+                    Thread.Sleep(1000);
+                    Lose1();
+
+                }
+                else
+                {
+                    Console.WriteLine("Try a different number");
+                }
+            } while ((num2 != num1) && (count <= 6));
+
+            Console.ReadLine();
+        }
+        public static void Lose1()
+        {
+            Console.WriteLine("\n\nYou feel yourself starting to lose consciousness and you know the end is near.\nYou can no longer hold yourself up to the oxygen terminal and fall to the ground.");
+            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("This is the end for you...");
+            Thread.Sleep(2000);
+            Console.Clear();
+            Console.Write("Unfortunatly you have failed this mission. Would you like to return to main menu (y or n):  ");
+            string temp = Console.ReadLine();
+            switch (temp)
+            {
+                case "y":
+                    Mainmenu();
+                    break;
+                case "n":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
+            }
         }
         static void GameEnd()
         {
