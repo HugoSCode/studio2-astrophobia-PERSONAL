@@ -9,14 +9,14 @@ namespace AstrophobiaFirst
         {
             int oxygenLevel = 735;
             int reactorCore = 150;
-            
-            string[] inventory = new string[99]; //Reference this throughout the whole program
-            int[] inventorySlot = new int[4]; //As with this one, to help reference what slot items are in.
+
+            string[] inventory = new string[4]; //Reference this throughout the whole program
+            int inventorySlot = '\0'; //As with this one, to help reference what slot items are in.
             string room = "\0";
 
             Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
         }
-        static void Mainmenu(ref string[] inventory, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void Mainmenu(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             Console.Clear();
             Console.WriteLine("Astrophobia");
@@ -40,7 +40,7 @@ namespace AstrophobiaFirst
                     break;
             }
         }
-        static void Help(ref string[] inventory, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void Help(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string playerChoice;
             Console.Clear();
@@ -79,7 +79,7 @@ namespace AstrophobiaFirst
             Console.WriteLine("Items are stored here");
             //We have yet to use this, maybe a menu function that displays items?
         }
-        static void IGmenu(ref string[] inventory, string currentRoom, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void IGmenu(ref string[] inventory, string currentRoom, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string Border = new string('*', 42);
             Console.WriteLine();
@@ -121,7 +121,7 @@ namespace AstrophobiaFirst
         }
         //The methods below are all the rooms that will be found in this game.
 
-        static void Intro(ref string[] inventory, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void Intro(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             inventory[0] = null;
             int dormRoomCount = 0;
@@ -152,11 +152,12 @@ namespace AstrophobiaFirst
             }
         }
         //below are all the rooms
-        public static void Dorm(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        public static void Dorm(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string temp = "\0";
             string currentRoom = "Dorm";
-            if (currentRoom == "Dorm" && inventory[0] == null)
+
+            if (currentRoom == "Dorm" && inventory[inventorySlot] == null)
             {
                 Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
@@ -173,7 +174,7 @@ namespace AstrophobiaFirst
                     }
                 case "LEAVE":
                     {
-                        if (currentRoom == "Dorm" && inventory[0] == null)
+                        if (currentRoom == "Dorm" && inventory[inventorySlot] == null)
                         {
                             Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
                             Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
@@ -186,7 +187,7 @@ namespace AstrophobiaFirst
                         break;
                     }
             }
-            if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount > 0)
+            if (currentRoom == "Dorm" && inventory[inventorySlot] == "Torch" && dormRoomCount > 0)
             {
                 Console.WriteLine("\nYou are in the Dorm \nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
@@ -208,11 +209,26 @@ namespace AstrophobiaFirst
                             IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                             break;
                         }
+                    case "INVENTORY":
+                        {
+                            Console.WriteLine($"\nInventory (Press any key to continue)");
+                            for (int i = 0; i < inventory.Length; i++)
+                            {
+                                if (inventory[i] == null)
+                                {
+                                    Console.WriteLine($"Slot {i+1} is empty");
+                                }
+                            }
+                            Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
+                            Console.ReadLine();
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            break;
+                        }
                 }
             }
-            else if (currentRoom == "Dorm" && inventory[0] == "Torch" && dormRoomCount == 0)
+            else if (currentRoom == "Dorm" && inventory[inventorySlot] == "Torch" && dormRoomCount == 0)
             {
-                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, through the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\n");
+                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, \nthrough the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\nInventory\n");
                 temp = Console.ReadLine();
                 temp = temp.ToUpper();
                 switch (temp)
@@ -231,16 +247,31 @@ namespace AstrophobiaFirst
                             IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                             break;
                         }
+                    case "INVENTORY":
+                        {
+                            Console.WriteLine($"\nInventory (Press any key to continue)");
+                            for (int i = 0; i < inventory.Length; i++)
+                            {
+                                if (inventory[i] == null)
+                                {
+                                    Console.WriteLine($"Slot {i + 1} is empty");
+                                }
+                            }
+                            Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
+                            Console.ReadLine();
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            break;
+                        }
                 }
             }
             else { }
         }
-        static void Hall(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void Hall(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string currentRoom = "Hall";
             string temp, playerChoice;
 
-            Console.WriteLine("\nYou are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\n-----\nMenu\n");
+            Console.WriteLine("\nYou are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\n-----\nMenu\nInventory\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
             playerChoice = temp;
@@ -269,9 +300,24 @@ namespace AstrophobiaFirst
                         IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                         break;
                     }
+                case "INVENTORY":
+                    {
+                        Console.WriteLine($"\nInventory (Press any key to continue)");
+                        for (int i = 0; i < inventory.Length; i++)
+                        {
+                            if (inventory[i] == null)
+                            {
+                                Console.WriteLine($"Slot {i + 1} is empty");
+                            }
+                        }
+                        Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
+                        Console.ReadLine();
+                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        break;
+                    }
             }
         }
-        static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string currentRoom = "Bridge";
             string temp, playerChoice;
@@ -308,66 +354,9 @@ namespace AstrophobiaFirst
                         IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                         break;
                     }
-
-                    /*int BridgeIntro;
-                    if (BridgeIntro < 1)
-                    {
-                        Console.WriteLine("You have now entered what looks to be the main Bridge --");
-                        Thread.Sleep(3000);
-                        Console.WriteLine("Press Enter to Continue");
-                        Console.ReadLine();
-                        Thread.Sleep(2000);
-                        Console.WriteLine();
-                        Console.WriteLine("There seems to be power in here as all the lights and computer systems are still running");
-                        Thread.Sleep(4000);
-                        Console.WriteLine();
-                        Console.WriteLine("You notice a console screen to your left showing information about the ships vitals... ");
-                        Thread.Sleep(3000);
-                        Console.WriteLine("Press Enter to Inspect");
-                        Console.ReadLine();
-                        ShipStats(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
-                        BridgeIntro = BridgeIntro + 1;
-
-                    }
-                    else
-                    {
-                        string currentRoom = "Bridge";
-                        string temp, playerChoice;
-
-                        Console.WriteLine("You are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. If you want to know what's wrong with the ship, surely answer lie here.\nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
-                        temp = Console.ReadLine();
-                        temp = temp.ToUpper();
-                        playerChoice = temp;
-
-                        switch (playerChoice)
-                        {
-                            case "LOOK":
-                                {
-                                    LookHall(ref inventory, oxygenLevel, reactorCore);
-                                    break;
-                                }
-                            case "SHIP STATS":
-                            case "SHIPSTATS":
-                            case "SHIP":
-                            case "STATS":
-                                {
-                                    ShipStats(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
-                                    break;
-                                }
-                            case "LEAVE":
-                                {
-                                    Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore);
-                                    break;
-                                }
-                            case "MENU":
-                                {
-                                    IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore);
-                                    break;
-                                }
-                        }*/
             }
         }
-        static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void BridgeIntro(ref string[] inventory,ref int dormRoomCount,ref int oxygenLevel,ref int reactorCore, ref int inventorySlot)
         {
             bool BridgeIntro = false;
             if (BridgeIntro == false)
@@ -396,7 +385,7 @@ namespace AstrophobiaFirst
         }
         //Below this are all the "LOOK" methods.
 
-        static void LookDorm(ref string[] inventory, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void LookDorm(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             
             string temp;
@@ -415,38 +404,44 @@ namespace AstrophobiaFirst
                     {
                         case "Y":
                             Console.WriteLine("\nWhat Slot would you like to put the Torch in? Your free slots are:\n1: Empty\n2: Empty\n3: Empty\n4: Empty\n");
-                            playerChoice = Console.ReadLine();
+                            temp = Console.ReadLine();
+                            temp = temp.ToUpper();
+                            playerChoice = temp;
                             switch (playerChoice)
                             {
                                 case "1":
-                                case "slot 1":
+                                case "SLOT 1":
                                     {
                                         torch = 0;
+                                        inventorySlot = 0;
                                         inventory[0] = "Torch";
                                         Console.WriteLine("\nYou placed the torch in slot 1 (Press any Key)");
                                         break;
                                     }
                                 case "2":
-                                case "slot 2":
+                                case "SLOT 2":
                                     {
                                         torch = 1;
+                                        inventorySlot = 1;
                                         inventory[1] = "Torch";
                                         Console.WriteLine("\nYou placed the torch in slot 2 (Press any Key)");
                                         break;
                                     }
                                 case "3":
-                                case "slot 3":
+                                case "SLOT 3":
                                     {
                                         torch = 2;
+                                        inventorySlot = 2;
                                         inventory[2] = "Torch";
                                         Console.WriteLine("\nYou placed the torch in slot 3 (Press any Key)");
                                         break;
                                     }
                                 case "4":
-                                case "slot 4":
+                                case "SLOT 4":
                                     {
                                         torch = 3;
                                         inventory[3] = "Torch";
+                                        inventorySlot = 3;
                                         Console.WriteLine("\nYou placed the torch in slot 4 (Press any Key)");
                                         break;
                                     }
@@ -469,7 +464,7 @@ namespace AstrophobiaFirst
                 Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
             }
         }
-        static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string temp;
             Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens. \nYou spot a manual on the controls to your left. \nWhat would you like to do? \n1. Read Manual \n2. Check computer \n3. Stop looking");
@@ -489,7 +484,7 @@ namespace AstrophobiaFirst
                     break;
             }           
         }
-        static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string temp;
             Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Leave computer");
@@ -509,7 +504,7 @@ namespace AstrophobiaFirst
                     break;
             }
         }
-        static void LookHall(ref string[] inventory, int oxygenLevel, int reactorCore, int[] inventorySlot)
+        static void LookHall(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             int dormRoomCount = 1;
             Console.WriteLine("\nYou are looking around the hall, looks very hall-y");
