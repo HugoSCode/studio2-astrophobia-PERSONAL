@@ -488,7 +488,7 @@ namespace AstrophobiaFirst
         static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string temp;
-            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Leave computer");
+            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn ship lights back on \n4. Leave");
             temp = Console.ReadLine();
             switch (temp)
             {
@@ -501,6 +501,11 @@ namespace AstrophobiaFirst
                     ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                     break;
                 case "3":
+                    bool lights = false;
+                    Task1(ref lights);
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    break;
+                case "4":
                     LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                     break;
             }
@@ -564,9 +569,89 @@ namespace AstrophobiaFirst
             Console.ReadLine();
         }
         //Task 1 is for within the bridge/within the main computer
-        public static void Task1()
+        public static void Task1(ref bool lights)
         {
+            Random rand = new Random();
+            int[] numbers = new int[7];
+            int[] user = new int[7];
+            string temp;
+            int comp, guess, correct = 0;
 
+            Console.WriteLine("There is a security lock on the ship's lights in order to save power, you will have to hack it open. \nThe computer will display 7 numbers for a couple seconds, then clear the screen. You will have to remember what the numbers were then type them out.\nPress enter to begin");
+            Console.ReadLine();
+            Console.Clear();
+            Thread.Sleep(700);
+            Console.WriteLine("Starting in:");
+            Thread.Sleep(700);
+            Console.WriteLine("3");
+            Thread.Sleep(700);
+            Console.WriteLine("2");
+            Thread.Sleep(700);
+            Console.WriteLine("1");
+            Thread.Sleep(700);
+            Console.Clear();
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                comp = rand.Next(1, 10);
+                numbers[i] = comp;
+                Console.WriteLine($"{comp}");
+            }
+            Thread.Sleep(2000);
+            Console.Clear();
+            Console.WriteLine("What were the numbers?");
+            for (int i = 0; i < user.Length; i++)
+            {
+                Console.WriteLine($"Guess {i + 1}:");
+                temp = Console.ReadLine();
+                guess = Convert.ToInt32(temp);
+                user[i] = guess;
+            }
+            Console.WriteLine();
+            for (int i = 0; i < user.Length; i++)
+            {
+                if (user[i] == numbers[i])
+                {
+                    Console.WriteLine("Correct");
+                    correct++;
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect");
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine("Computer:");
+            foreach (var item in numbers)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.WriteLine();
+            Console.WriteLine("Your Answers:");
+            foreach (var item in user)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            if (correct == 7)
+            {
+                lights = true;
+                Console.WriteLine("You did it!\nPress enter to continue.");
+                Console.ReadLine();
+                
+            }
+            else
+            {
+                string temp2;
+                Console.WriteLine("You failed, try again? Y or N:");
+                temp = Console.ReadLine();
+                temp = temp.ToUpper();
+                switch (temp)
+                {
+                    case "Y":
+                        Task1(ref lights);
+                        break;
+                    
+                }
+            }
         }
         //Task 2 is for Engine/operation room once added
         public static void Task2()
@@ -574,7 +659,7 @@ namespace AstrophobiaFirst
 
         }
         //Task 3 is for in the oxygen room once that has been made
-        public static void Task3()
+        public static void Task3(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             Console.WriteLine("You will be given a sequence of numbers to remember");
             string temp;
@@ -616,7 +701,7 @@ namespace AstrophobiaFirst
                 {
                     Console.WriteLine("Oxygen Levels are critical");
                     Thread.Sleep(1000);
-                    Lose1();
+                    Lose1(ref inventory, oxygenLevel, reactorCore, inventorySlot);
 
                 }
                 else
@@ -627,7 +712,7 @@ namespace AstrophobiaFirst
 
             Console.ReadLine();
         }
-        public static void Lose1()
+        public static void Lose1(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             Console.WriteLine("\n\nYou feel yourself starting to lose consciousness and you know the end is near.\nYou can no longer hold yourself up to the oxygen terminal and fall to the ground.");
             Console.ReadLine();
@@ -640,7 +725,7 @@ namespace AstrophobiaFirst
             switch (temp)
             {
                 case "y":
-                    Mainmenu();
+                    Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
                     break;
                 case "n":
                     Environment.Exit(0);
@@ -667,7 +752,7 @@ namespace AstrophobiaFirst
             Console.WriteLine("\nPress enter to continue");
             Console.ReadLine();
             Console.Clear();
-            Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.")
+            Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.");
         }
         static void GameEnd()
         {
