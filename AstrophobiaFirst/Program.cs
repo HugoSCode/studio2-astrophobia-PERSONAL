@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System;
 using System.ComponentModel.Design;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AstrophobiaFirst
 {
@@ -751,15 +752,17 @@ namespace AstrophobiaFirst
             Console.WriteLine("This is the end for you...");
             Thread.Sleep(2000);
             Console.Clear();
-            Console.Write("Unfortunatly you have failed this mission. Would you like to return to main menu (y or n):  ");
+            Console.Write("Unfortunatly you have failed this mission. Would you like to return to main menu? (y or n):  ");
             string temp = Console.ReadLine();
             switch (temp)
             {
                 case "y":
+                case "Y":
                     Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
                     break;
                 case "n":
-                    Environment.Exit(0);
+                case "N":
+                    GameEnd();
                     break;
                 default:
                     break;
@@ -784,7 +787,21 @@ namespace AstrophobiaFirst
             Console.ReadLine();
             Console.Clear();
             Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.");
-        }
+            Console.Write("Would you like to return to main menu to play again? (y or n):  ");
+            string temp = Console.ReadLine();
+            switch (temp)
+            {
+                case "y":
+                case "Y":
+                    Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    break;
+                case "n":
+                case "N":
+                    GameEnd();
+                    break;
+                default:
+                    break;
+            }
         static void GameEnd()
         {
             Console.WriteLine("You have chosen to exit the game");
