@@ -249,7 +249,7 @@ namespace AstrophobiaFirst
                             {
                                 if (inventory[i] == null)
                                 {
-                                    Console.WriteLine($"Slot {i+1} is empty");
+                                    Console.WriteLine($"Slot {i + 1} is empty");
                                 }
                             }
                             Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
@@ -389,7 +389,7 @@ namespace AstrophobiaFirst
                     }
             }
         }
-        static void BridgeIntro(ref string[] inventory,ref int dormRoomCount,ref int oxygenLevel,ref int reactorCore, ref int inventorySlot)
+        static void BridgeIntro(ref string[] inventory, ref int dormRoomCount, ref int oxygenLevel, ref int reactorCore, ref int inventorySlot)
         {
             bool BridgeIntro = false;
             if (BridgeIntro == false)
@@ -420,7 +420,7 @@ namespace AstrophobiaFirst
 
         static void LookDorm(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
-            
+
             string temp;
             int dormRoomCount = 0, torch = '\0';
             string currentRoom = "Dorm", playerChoice = null;
@@ -515,7 +515,7 @@ namespace AstrophobiaFirst
                 case "3":
                     Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                     break;
-            }           
+            }
         }
         static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
@@ -668,7 +668,7 @@ namespace AstrophobiaFirst
                 lights = true;
                 Console.WriteLine("You did it!\nPress enter to continue.");
                 Console.ReadLine();
-                
+
             }
             else
             {
@@ -681,7 +681,7 @@ namespace AstrophobiaFirst
                     case "Y":
                         Task1(ref lights);
                         break;
-                    
+
                 }
             }
         }
@@ -762,119 +762,122 @@ namespace AstrophobiaFirst
 
                 } while (Correct < 4);
                 Console.WriteLine($"You got {Correct} of 5 answers correct");
-                Console.ReadLine();
-            }*/
+                Console.ReadLine();*/
+        }
         //Task 3 is for in the oxygen room once that has been made
         public static void Task3(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
-        {
-            Console.WriteLine("You will be given a sequence of numbers to remember");
-            string temp;
-            char answer;
-            int number = 1;
-            do
             {
-                Console.WriteLine("\nAre you ready: y or n");
-                temp = Console.ReadLine();
-                answer = Convert.ToChar(temp);
-            } while ((answer != 'y') && (answer != 'n'));
-            Console.WriteLine("Thank you.");
-            Thread.Sleep(1000);
-            Console.Clear();
+                Console.WriteLine("You will be given a sequence of numbers to remember");
+                string temp;
+                char answer;
+                int number = 1;
+                do
+                {
+                    Console.WriteLine("\nAre you ready: y or n");
+                    temp = Console.ReadLine();
+                    answer = Convert.ToChar(temp);
+                } while ((answer != 'y') && (answer != 'n'));
+                Console.WriteLine("Thank you.");
+                Thread.Sleep(1000);
+                Console.Clear();
 
-            int count = 0, num1, num2;
-            Random rand = new Random();
-            num1 = rand.Next(1, 101);
-            Console.WriteLine("\nThe code is a number between 1-100, but you can't remember it.\nYou will have to guess quickly to find the answer before you black out\nYou should get at least 6 guesses.");
-            do
-            {
-                Console.Write("\nPlease type a number:  ");
-                temp = Console.ReadLine();
-                num2 = Convert.ToInt32(temp);
-                if (num2 > num1)
+                int count = 0, num1, num2;
+                Random rand = new Random();
+                num1 = rand.Next(1, 101);
+                Console.WriteLine("\nThe code is a number between 1-100, but you can't remember it.\nYou will have to guess quickly to find the answer before you black out\nYou should get at least 6 guesses.");
+                do
                 {
-                    Console.WriteLine("The number you are looking for is smaller then this");
-                }
-                if (num2 < num1)
-                {
-                    Console.WriteLine("The number you are looking for is larger then this");
-                }
-                else
-                {
-                    Console.WriteLine("Correct code entered");
-                }
-                count++;
-                if (count >= 6)
-                {
-                    Console.WriteLine("Oxygen Levels are critical");
-                    Thread.Sleep(1000);
-                    Lose1(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    Console.Write("\nPlease type a number:  ");
+                    temp = Console.ReadLine();
+                    num2 = Convert.ToInt32(temp);
+                    if (num2 > num1)
+                    {
+                        Console.WriteLine("The number you are looking for is smaller then this");
+                    }
+                    if (num2 < num1)
+                    {
+                        Console.WriteLine("The number you are looking for is larger then this");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Correct code entered");
+                    }
+                    count++;
+                    if (count >= 6)
+                    {
+                        Console.WriteLine("Oxygen Levels are critical");
+                        Thread.Sleep(1000);
+                        Lose1(ref inventory, oxygenLevel, reactorCore, inventorySlot);
 
-                }
-                else
-                {
-                    Console.WriteLine("Try a different number");
-                }
-            } while ((num2 != num1) && (count <= 6));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Try a different number");
+                    }
+                } while ((num2 != num1) && (count <= 6));
 
-            Console.ReadLine();
-        }
-        public static void Lose1(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
-        {
-            Console.WriteLine("\n\nYou feel yourself starting to lose consciousness and you know the end is near.\nYou can no longer hold yourself up to the oxygen terminal and fall to the ground.");
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("This is the end for you...");
-            Thread.Sleep(2000);
-            Console.Clear();
-            Console.Write("Unfortunatly you have failed this mission. Would you like to return to main menu? (y or n):  ");
-            string temp = Console.ReadLine();
-            switch (temp)
-            {
-                case "y":
-                case "Y":
-                    Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
-                    break;
-                case "n":
-                case "N":
-                    GameEnd();
-                    break;
-                default:
-                    break;
+                Console.ReadLine();
             }
-        }
-        public static void Win1()
-        {
-            Console.Clear();
-            Console.WriteLine(".");
-            Thread.Sleep(250);
-            Console.Write(" .");
-            Thread.Sleep(250);
-            Console.Write(" .");
-            Thread.Sleep(250);
-            Console.Clear();
-            Console.WriteLine("The ship's oxygen is back online.\nDue to the period of time that the oxygen was offline you may experiance light headedness.\nIf so please make your way to a safe seating area.");
-            Console.WriteLine("\nPress enter to continue.");
-            Console.ReadLine();
-            Console.WriteLine("\n\nYou did it! Some how you managed to guess the code that had slipped your mind before all of the oxygen ran out.");
-            Console.WriteLine("You slump to the floor relieved that you will live to see another day. Once you feel better you will be able to make your way back to the bridge you will be able to set auto pilot to the nearest space station and receive proper medical care.");
-            Console.WriteLine("\nPress enter to continue");
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.");
-            Console.Write("Would you like to return to main menu to play again? (y or n):  ");
-            string temp = Console.ReadLine();
-            switch (temp)
+            public static void Lose1(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
             {
-                case "y":
-                case "Y":
-                    Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
-                    break;
-                case "n":
-                case "N":
-                    GameEnd();
-                    break;
-                default:
-                    break;
+                Console.WriteLine("\n\nYou feel yourself starting to lose consciousness and you know the end is near.\nYou can no longer hold yourself up to the oxygen terminal and fall to the ground.");
+                Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("This is the end for you...");
+                Thread.Sleep(2000);
+                Console.Clear();
+                Console.Write("Unfortunatly you have failed this mission. Would you like to return to main menu? (y or n):  ");
+                string temp = Console.ReadLine();
+                switch (temp)
+                {
+                    case "y":
+                    case "Y":
+                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        break;
+                    case "n":
+                    case "N":
+                        GameEnd();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            public static void Win1(ref string []inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+            {
+                Console.Clear();
+                Console.WriteLine(".");
+                Thread.Sleep(250);
+                Console.Write(" .");
+                Thread.Sleep(250);
+                Console.Write(" .");
+                Thread.Sleep(250);
+                Console.Clear();
+                Console.WriteLine("The ship's oxygen is back online.\nDue to the period of time that the oxygen was offline you may experiance light headedness.\nIf so please make your way to a safe seating area.");
+                Console.WriteLine("\nPress enter to continue.");
+                Console.ReadLine();
+                Console.WriteLine("\n\nYou did it! Some how you managed to guess the code that had slipped your mind before all of the oxygen ran out.");
+                Console.WriteLine("You slump to the floor relieved that you will live to see another day. Once you feel better you will be able to make your way back to the bridge you will be able to set auto pilot to the nearest space station and receive proper medical care.");
+                Console.WriteLine("\nPress enter to continue");
+                Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.");
+                Console.Write("Would you like to return to main menu to play again? (y or n):  ");
+                string temp = Console.ReadLine();
+                switch (temp)
+                {
+                    case "y":
+                    case "Y":
+                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        break;
+                    case "n":
+                    case "N":
+                        GameEnd();
+                        break;
+                    default:
+                        break;
+                }
+                
+                // Rooms not yet in game or may not be needed - Med, Reactor, Storage, Airlock
             }
         static void GameEnd()
         {
@@ -884,6 +887,6 @@ namespace AstrophobiaFirst
             Thread.Sleep(1000);
             Environment.Exit(0);
         }
-        // Rooms not yet in game or may not be needed - Med, Reactor, Storage, Airlock
-    }
-}
+    } 
+} 
+
