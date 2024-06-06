@@ -31,13 +31,23 @@ namespace AstrophobiaFirst
             switch (temp)
             {
                 case "PLAY":
+                case "Play":
+                case "play":
                 case "1":
                     Console.Clear();
                     Intro(ref inventory, oxygenLevel, reactorCore, inventorySlot);
                     break;
                 case "2":
                 case "HELP":
+                case "Help":
+                case "help":
                     Help(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    break;
+                case "4":
+                case "EXIT":
+                case "Exit":
+                case "exit":
+                    GameEnd();
                     break;
             }
         }
@@ -46,7 +56,7 @@ namespace AstrophobiaFirst
             string playerChoice;
             Console.Clear();
             Console.WriteLine("This is the help section, where everything you may need as you play through this game. Below you will find the Help options, which goes into specifics about the specified topic.");
-            Console.WriteLine("\n1    Commands");
+            Console.WriteLine("\n1    Commands\n2    Purpose");
             Console.WriteLine("\nHit Enter to Go back to the Main Menu");
             playerChoice = Console.ReadLine();
             playerChoice = playerChoice.ToUpper();
@@ -55,18 +65,39 @@ namespace AstrophobiaFirst
             {
                 case "1":
                 case "COMMANDS":
+                case "Commands":
+                case "commands":
                     {
                         Console.Clear();
                         Console.WriteLine("This page will specify globally used commands within the game:");
-                        Console.WriteLine("\nlook: This command is used to look around the room you are currently in, to help you with your surroundings, it may also show any items found in said room.");
+                        Console.WriteLine("\nlook: This command is used to look around the room you are currently in, to help you with your surroundings, \nit may also show any items found in said room.");
                         Console.WriteLine("\nleave: Used to leave the current room you are in, assuming said room is linked to the hallway.");
-                        Console.WriteLine("\npick up X: Used to pick up any items that can be found in the room you are currently in, said item is denoted by X.");
-                        Console.WriteLine("\nmenu: this command will bring up up the ingame menu, and with it, a few more options for the player, such as restarting exiting the game, going to the main menu etc...");
+                        Console.WriteLine("\nTo pick up any items that can be found in the room you are currently in, you will likely answer in yes or no. \nYou will also have to write which slot the item fills.");
+                        Console.WriteLine("\nmenu: this command will bring up up the ingame menu, and with it, a few more options for the player, \nsuch as restarting exiting the game, going to the main menu etc...");
+                        Console.WriteLine("\nUse a rooms name while in the hallway to go to the room you have typed (e.g. typing dorm goes to the Dorm room).");
+                        Console.WriteLine("\ninventory: This is used to access your inventory and see what slots are free and full.");
+                        Console.WriteLine("\nskip: This is used to skip any story if you don't want to read or you have already read.");
+                        Console.WriteLine("\nship stats: This allows you to access oxygen levels and see what parts of the ship or damaged, enabled or disabled.");
                         Console.WriteLine("\nHit Enter to go back to the Help Options page.");
                         Console.ReadLine();
                         Help(ref inventory, oxygenLevel, reactorCore, inventorySlot);
                         break;
                     }
+                case "2":
+                case "PURPOSE":
+                case "Purpose":
+                case "purpose":
+                    Console.Clear();
+                    Console.WriteLine("This page will outline the story/purpose of this game.");
+                    Console.WriteLine("\nThe purpose of this game is to escape from this ship that you have woken up on. You have no memory or why you \nare here or how you got here.");
+                    Console.WriteLine("You start to explore the ship to get use to your surroundings and find out that it is damaged.");
+                    Console.WriteLine("As you are the only one on the ship, it is up to you to fix the ship to save your own life, else you may not survive.");
+                    Console.WriteLine("While fixing the ship you have to come over multiple challenges that get harder as the gme goes on.");
+                    Console.WriteLine("There are multiple endings to find along the way, some good, some bad.\nWill you be able to fix the ship or escape before it is to late?");
+                    Console.WriteLine("\nHit Enter to go back to the Help Options page.");
+                    Console.ReadLine();
+                    Help(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    break;
                 default:
                     {
                         Console.Clear();
