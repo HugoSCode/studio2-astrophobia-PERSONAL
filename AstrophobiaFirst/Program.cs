@@ -649,6 +649,26 @@ namespace AstrophobiaFirst
                     break;
             }
         }
+        public static void Win1()
+        {
+            Console.Clear();
+            Console.WriteLine(".");
+            Thread.Sleep(250);
+            Console.Write(" .");
+            Thread.Sleep(250);
+            Console.Write(" .");
+            Thread.Sleep(250);
+            Console.Clear();
+            Console.WriteLine("The ship's oxygen is back online.\nDue to the period of time that the oxygen was offline you may experiance light headedness.\nIf so please make your way to a safe seating area.");
+            Console.WriteLine("\nPress enter to continue.");
+            Console.ReadLine();
+            Console.WriteLine("\n\nYou did it! Some how you managed to guess the code that had slipped your mind before all of the oxygen ran out.");
+            Console.WriteLine("You slump to the floor relieved that you will live to see another day. Once you feel better you will be able to make your way back to the bridge you will be able to set auto pilot to the nearest space station and receive proper medical care.");
+            Console.WriteLine("\nPress enter to continue");
+            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.")
+        }
         static void GameEnd()
         {
             Console.WriteLine("You have chosen to exit the game");
