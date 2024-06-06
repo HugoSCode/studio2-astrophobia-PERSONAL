@@ -688,8 +688,82 @@ namespace AstrophobiaFirst
         //Task 2 is for Engine/operation room once added
         public static void Task2()
         {
+            /*static void Main(string[] args)
+            {
+                int Attempts = 3;
+                int Correct = 0;
+                string Q1 = "V2ROCKET";
+                string Q2 = "311";
+                string Q3;
+                string Q4;
+                string Q5
 
-        }
+            do
+                {
+
+                    Console.WriteLine("You need to guess 3 out of 5 answers correct in order to have the knowledge to fix the engine thruster");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Question 1");
+                    Thread.Sleep(1000);
+                    Console.Write("What is the name of the first rocket to go into space?\nsaturn5\nV2rocket\napollo1 \nsputnik\n\nAnswer:  ");
+                    string Answer1 = Console.ReadLine();
+                    Answer1 = Answer1.ToUpper();
+
+                    if (Answer1 == Q1)
+                    {
+                        Console.WriteLine("Correct!");
+                        Correct += 1;
+                    }
+                    Console.WriteLine("Question 2");
+                    Thread.Sleep(1000);
+                    Console.Write("How many days was the Russian man Sergei Krikalev lost in space for?\n64 \n104 \n251 \n311 \n\nAnswer:  ");
+                    string Answer2 = Console.ReadLine();
+                    Answer2 = Answer2.ToUpper();
+
+                    if (Answer2 == Q2)
+                    {
+                        Console.WriteLine("Correct!");
+                        Correct += 1;
+                    }
+                    Console.WriteLine("Question 2");
+                    Thread.Sleep(1000);
+                    Console.Write(" \n311 \n\nAnswer:  ");
+                    string Answer3 = Console.ReadLine();
+                    Answer2 = Answer2.ToUpper();
+
+                    if (Answer3 == Q3)
+                    {
+                        Console.WriteLine("Correct!");
+                        Correct += 1;
+                    }
+                    Console.WriteLine("Question 2");
+                    Thread.Sleep(1000);
+                    Console.Write("\n\nAnswer:  ");
+                    string Answer4 = Console.ReadLine();
+                    Answer4 = Answer4.ToUpper();
+
+                    if (Answer4 == Q4)
+                    {
+                        Console.WriteLine("Correct!");
+                        Correct += 1;
+                    }
+                    Console.WriteLine("Question 2");
+                    Thread.Sleep(1000);
+                    Console.Write("\n\nAnswer:  ");
+                    string Answer3 = Console.ReadLine();
+                    Answer2 = Answer2.ToUpper();
+
+                    if (Answer3 == Q5)
+                    {
+                        Console.WriteLine("Correct!");
+                        Correct += 1;
+                    }
+
+
+                } while (Correct < 4);
+                Console.WriteLine($"You got {Correct} of 5 answers correct");
+                Console.ReadLine();
+            }*/
         //Task 3 is for in the oxygen room once that has been made
         public static void Task3(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
         {
