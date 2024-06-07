@@ -520,7 +520,7 @@ namespace AstrophobiaFirst
         static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
         {
             string temp;
-            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn ship lights back on \n4. Leave");
+            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn the main power back on \n4. Leave");
             temp = Console.ReadLine();
             switch (temp)
             {
@@ -533,8 +533,8 @@ namespace AstrophobiaFirst
                     ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                     break;
                 case "3":
-                    bool lights = false;
-                    Task1(ref lights);
+                    bool power = false;
+                    Task1(ref power);
                     ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
                     break;
                 case "4":
@@ -601,7 +601,7 @@ namespace AstrophobiaFirst
             Console.ReadLine();
         }
         //Task 1 is for within the bridge/within the main computer
-        public static void Task1(ref bool lights)
+        public static void Task1(ref bool power)
         {
             Random rand = new Random();
             int[] numbers = new int[7];
@@ -609,7 +609,7 @@ namespace AstrophobiaFirst
             string temp;
             int comp, guess, correct = 0;
 
-            Console.WriteLine("There is a security lock on the ship's lights in order to save power, you will have to hack it open. \nThe computer will display 7 numbers for a couple seconds, then clear the screen. You will have to remember what the numbers were then type them out.\nPress enter to begin");
+            Console.WriteLine("The ship is currently on backup power, which is why some doors are shut. There is a security lock on the ship's main power, you will have to hack it open. \nThe computer will display 7 numbers for a couple seconds, then clear the screen. You will have to remember what the numbers were then type them out.\nPress enter to begin");
             Console.ReadLine();
             Console.Clear();
             Thread.Sleep(700);
@@ -665,7 +665,7 @@ namespace AstrophobiaFirst
             }
             if (correct == 7)
             {
-                lights = true;
+                power = true;
                 Console.WriteLine("You did it!\nPress enter to continue.");
                 Console.ReadLine();
 
@@ -679,7 +679,7 @@ namespace AstrophobiaFirst
                 switch (temp)
                 {
                     case "Y":
-                        Task1(ref lights);
+                        Task1(ref power);
                         break;
 
                 }
