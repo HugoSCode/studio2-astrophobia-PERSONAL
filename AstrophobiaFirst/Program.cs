@@ -609,7 +609,7 @@ namespace AstrophobiaFirst
             string temp;
             int comp, guess, correct = 0;
 
-            Console.WriteLine("The ship is currently on backup power, which is why some doors are shut. There is a security lock on the ship's main power, you will have to hack it open. \nThe computer will display 7 numbers for a couple seconds, then clear the screen. You will have to remember what the numbers were then type them out.\nPress enter to begin");
+            Console.WriteLine("The ship is currently on backup power, which is why some doors are shut. There is a security lock on the ship's main power, you will have to hack it open. \nThe computer will display 7 numbers for a couple seconds, then clear the screen. You will have to remember what the numbers were then type them out one at a time in the correct spot.\nPress enter to begin");
             Console.ReadLine();
             Console.Clear();
             Thread.Sleep(700);
