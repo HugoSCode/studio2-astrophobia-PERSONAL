@@ -688,22 +688,30 @@ namespace AstrophobiaFirst
         //Task 2 is for Engine/operation room once added
         public static void Task2()
         {
-            /*static void Main(string[] args)
-            {
-                int Attempts = 3;
-                int Correct = 0;
-                string Q1 = "V2ROCKET";
-                string Q2 = "311";
-                string Q3;
-                string Q4;
-                string Q5
-
+            int Round = 2;
+            int Correct = 0;
+            string Q1 = "V2ROCKET";
+            string Q2 = "311";
+            string Q3 = "SATURN";
+            string Q4 = "VENUS";
+            string Q5 = "1969";
+            Console.ReadLine();
             do
+            {
+                if (Round > 5)
                 {
-
-                    Console.WriteLine("You need to guess 3 out of 5 answers correct in order to have the knowledge to fix the engine thruster");
+                    Console.WriteLine("--- You failed to fix the ships thruster =( ---");
+                    Thread.Sleep(2000);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"You need to guess {Round} out of 5 answers correct in order to have the knowledge to fix the engine thruster");
                     Thread.Sleep(1000);
+                    Console.WriteLine();
                     Console.WriteLine("Question 1");
+                    Console.WriteLine();
                     Thread.Sleep(1000);
                     Console.Write("What is the name of the first rocket to go into space?\nsaturn5\nV2rocket\napollo1 \nsputnik\n\nAnswer:  ");
                     string Answer1 = Console.ReadLine();
@@ -714,7 +722,9 @@ namespace AstrophobiaFirst
                         Console.WriteLine("Correct!");
                         Correct += 1;
                     }
+                    Console.WriteLine();
                     Console.WriteLine("Question 2");
+                    Console.WriteLine();
                     Thread.Sleep(1000);
                     Console.Write("How many days was the Russian man Sergei Krikalev lost in space for?\n64 \n104 \n251 \n311 \n\nAnswer:  ");
                     string Answer2 = Console.ReadLine();
@@ -725,20 +735,23 @@ namespace AstrophobiaFirst
                         Console.WriteLine("Correct!");
                         Correct += 1;
                     }
-                    Console.WriteLine("Question 2");
+                    Console.WriteLine();
+                    Console.WriteLine("Question 3");
+                    Console.WriteLine();
                     Thread.Sleep(1000);
-                    Console.Write(" \n311 \n\nAnswer:  ");
+                    Console.Write("What planet in our solar system has the most moons\n(Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune)?\n\nAnswer:  ");
                     string Answer3 = Console.ReadLine();
-                    Answer2 = Answer2.ToUpper();
+                    Answer3 = Answer3.ToUpper();
 
                     if (Answer3 == Q3)
                     {
                         Console.WriteLine("Correct!");
                         Correct += 1;
                     }
-                    Console.WriteLine("Question 2");
+                    Console.WriteLine();
+                    Console.WriteLine("Question 4");
                     Thread.Sleep(1000);
-                    Console.Write("\n\nAnswer:  ");
+                    Console.Write("What is the warmest planet in our solar system\n(Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune)?\n\nAnswer:  ");
                     string Answer4 = Console.ReadLine();
                     Answer4 = Answer4.ToUpper();
 
@@ -747,22 +760,25 @@ namespace AstrophobiaFirst
                         Console.WriteLine("Correct!");
                         Correct += 1;
                     }
-                    Console.WriteLine("Question 2");
+                    Console.WriteLine();
+                    Console.WriteLine("Question 5");
                     Thread.Sleep(1000);
-                    Console.Write("\n\nAnswer:  ");
-                    string Answer3 = Console.ReadLine();
-                    Answer2 = Answer2.ToUpper();
+                    Console.Write("What year did man first walk on the moon, 1964, 1969, 1971, 1968?\n\nAnswer:  ");
+                    string Answer5 = Console.ReadLine();
+                    Answer5 = Answer5.ToUpper();
 
-                    if (Answer3 == Q5)
+                    if (Answer5 == Q5)
                     {
                         Console.WriteLine("Correct!");
                         Correct += 1;
                     }
+                }
+                Round++;
 
-
-                } while (Correct < 4);
-                Console.WriteLine($"You got {Correct} of 5 answers correct");
-                Console.ReadLine();*/
+            } while (Correct != Round || Correct < Round);
+            Console.WriteLine($"You got {Correct} of 5 answers correct and have successfully fixed the ships thruster =)");
+            Thread.Sleep(2000);
+            Console.ReadLine();
         }
         //Task 3 is for in the oxygen room once that has been made
         public static void Task3(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
