@@ -11,14 +11,14 @@ namespace AstrophobiaFirst
         {
             int oxygenLevel = 735;
             int reactorCore = 150;
-
+            bool power = false;
             string[] inventory = new string[4]; //Reference this throughout the whole program
             int inventorySlot = '\0'; //As with this one, to help reference what slot items are in.
             string room = "\0";
 
-            Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+            Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
         }
-        static void Mainmenu(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void Mainmenu(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             Console.Clear();
             Console.WriteLine("Astrophobia");
@@ -36,13 +36,13 @@ namespace AstrophobiaFirst
                 case "play":
                 case "1":
                     Console.Clear();
-                    Intro(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    Intro(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "2":
                 case "HELP":
                 case "Help":
                 case "help":
-                    Help(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    Help(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "4":
                 case "EXIT":
@@ -52,7 +52,7 @@ namespace AstrophobiaFirst
                     break;
             }
         }
-        static void Help(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void Help(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string playerChoice;
             Console.Clear();
@@ -81,7 +81,7 @@ namespace AstrophobiaFirst
                         Console.WriteLine("\nship stats: This allows you to access oxygen levels and see what parts of the ship or damaged, enabled or disabled.");
                         Console.WriteLine("\nHit Enter to go back to the Help Options page.");
                         Console.ReadLine();
-                        Help(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        Help(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "2":
@@ -97,12 +97,12 @@ namespace AstrophobiaFirst
                     Console.WriteLine("There are multiple endings to find along the way, some good, some bad.\nWill you be able to fix the ship or escape before it is to late?");
                     Console.WriteLine("\nHit Enter to go back to the Help Options page.");
                     Console.ReadLine();
-                    Help(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    Help(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 default:
                     {
                         Console.Clear();
-                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
             }
@@ -112,7 +112,7 @@ namespace AstrophobiaFirst
             Console.WriteLine("Items are stored here");
             //We have yet to use this, maybe a menu function that displays items?
         }
-        static void IGmenu(ref string[] inventory, string currentRoom, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void IGmenu(ref string[] inventory, string currentRoom, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string Border = new string('*', 42);
             Console.WriteLine();
@@ -128,24 +128,24 @@ namespace AstrophobiaFirst
                 case "1":
                     if (currentRoom == "Dorm")
                     {
-                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     }
                     if (currentRoom == "Hall")
                     {
-                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     }
                     if (currentRoom == "Bridge")
                     {
-                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     }
                     break;
                 case "2":
                     {
-                        Intro(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        Intro(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "3":
-                    Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                    Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "4":
                     GameEnd();
@@ -154,7 +154,7 @@ namespace AstrophobiaFirst
         }
         //The methods below are all the rooms that will be found in this game.
 
-        static void Intro(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void Intro(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             inventory[0] = null;
             int dormRoomCount = 0;
@@ -170,7 +170,7 @@ namespace AstrophobiaFirst
                         Console.WriteLine("You have Chosen to skip, skipping...");
                         Thread.Sleep(1500);
                         Console.Clear();
-                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 default:
@@ -178,14 +178,14 @@ namespace AstrophobiaFirst
                         Console.WriteLine("This story takes place in the year 2197, humanity has advanced to and beyond the stars, developing FTL engines \n(Faster Than Light) And, as humanity does, it used this technology to expand their territory.\nTo give themselves places to go, to get away from Earth. Which, at the time was breaching a population of over \n50 billion. Earth alone was far from enough to sustain this population, and so many fled abord vast ships, heading for \nfaraway planets, for a second chance at life. You, happened to be aboard on of these ships...");
                         Console.WriteLine("Hit Enter to Begin...");
                         Console.ReadLine();
-                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
 
             }
         }
         //below are all the rooms
-        public static void Dorm(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
+        public static void Dorm(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string temp = "\0";
             string currentRoom = "Dorm";
@@ -202,7 +202,7 @@ namespace AstrophobiaFirst
             {
                 case "LOOK":
                     {
-                        LookDorm(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        LookDorm(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "LEAVE":
@@ -210,13 +210,13 @@ namespace AstrophobiaFirst
                         if (currentRoom == "Dorm" && inventory[inventorySlot] == null)
                         {
                             Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
-                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         }
                         break;
                     }
                 case "MENU":
                     {
-                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
             }
@@ -229,17 +229,17 @@ namespace AstrophobiaFirst
                 {
                     case "LOOK":
                         {
-                            LookDorm(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                            LookDorm(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                     case "LEAVE":
                         {
-                            Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                     case "MENU":
                         {
-                            IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                     case "INVENTORY":
@@ -254,7 +254,7 @@ namespace AstrophobiaFirst
                             }
                             Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
                             Console.ReadLine();
-                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                 }
@@ -268,16 +268,16 @@ namespace AstrophobiaFirst
                 {
                     case "LOOK":
                         {
-                            LookDorm(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                            LookDorm(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                     case "LEAVE":
                         dormRoomCount++;
-                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     case "MENU":
                         {
-                            IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                     case "INVENTORY":
@@ -292,19 +292,19 @@ namespace AstrophobiaFirst
                             }
                             Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
                             Console.ReadLine();
-                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         }
                 }
             }
             else { }
         }
-        static void Hall(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void Hall(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string currentRoom = "Hall";
             string temp, playerChoice;
 
-            Console.WriteLine("\nYou are in the hallway, down one end of the hallway is the bridge. Or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\n-----\nMenu\nInventory\n");
+            Console.WriteLine("\nYou are in the hallway, most of the rooms are shut except for the dorm and the bridge down the end of the hallway. You could go in there or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\n-----\nMenu\nInventory\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
             playerChoice = temp;
@@ -314,23 +314,23 @@ namespace AstrophobiaFirst
                 case "GO TO DORM":
                 case "DORM":
                     {
-                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "GO TO BRIDGE":
                 case "BRIDGE":
                     {
-                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "LOOK":
                     {
-                        LookHall(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        LookHall(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "MENU":
                     {
-                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "INVENTORY":
@@ -345,12 +345,12 @@ namespace AstrophobiaFirst
                         }
                         Console.WriteLine($"{inventory[inventorySlot]}: In slot {inventorySlot + 1}.");
                         Console.ReadLine();
-                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
             }
         }
-        static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string currentRoom = "Bridge";
             string temp, playerChoice;
@@ -364,7 +364,7 @@ namespace AstrophobiaFirst
             {
                 case "LOOK":
                     {
-                        LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "SHIP STATS":
@@ -374,22 +374,22 @@ namespace AstrophobiaFirst
                     {
                         ShipStats(ref oxygenLevel, reactorCore);
                         ShipSystems();
-                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "LEAVE":
                     {
-                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "MENU":
                     {
-                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                        IGmenu(ref inventory, currentRoom, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
             }
         }
-        static void BridgeIntro(ref string[] inventory, ref int dormRoomCount, ref int oxygenLevel, ref int reactorCore, ref int inventorySlot)
+        static void BridgeIntro(ref string[] inventory, ref int dormRoomCount, ref int oxygenLevel, ref int reactorCore, ref int inventorySlot, bool power)
         {
             bool BridgeIntro = false;
             if (BridgeIntro == false)
@@ -418,7 +418,7 @@ namespace AstrophobiaFirst
         }
         //Below this are all the "LOOK" methods.
 
-        static void LookDorm(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void LookDorm(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
 
             string temp;
@@ -480,7 +480,7 @@ namespace AstrophobiaFirst
                                     }
                             }
                             Console.ReadLine();
-                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                            Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                             break;
                         case "N":
                             Console.WriteLine("\nYou decided not to pick up the torch, But you still cannot see.\nMaybe it would be better to pick it up...");
@@ -494,10 +494,10 @@ namespace AstrophobiaFirst
             {
                 Console.WriteLine("There is nothing else in the room \nPress any key...");
                 Console.ReadLine();
-                Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
             }
         }
-        static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string temp;
             Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens. \nYou spot a manual on the controls to your left. \nWhat would you like to do? \n1. Read Manual \n2. Check computer \n3. Stop looking");
@@ -507,17 +507,17 @@ namespace AstrophobiaFirst
                 case "1":
                     Console.WriteLine("This does nothing right now \nPress enter");
                     Console.ReadLine();
-                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "2":
-                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "3":
-                    Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
             }
         }
-        static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string temp;
             Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn the main power back on \n4. Leave");
@@ -526,28 +526,27 @@ namespace AstrophobiaFirst
             {
                 case "1":
                     ShipStats(ref oxygenLevel, reactorCore);
-                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "2":
                     ShipSystems();
-                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "3":
-                    bool power = false;
                     Task1(ref power);
-                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "4":
-                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
             }
         }
-        static void LookHall(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+        static void LookHall(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             int dormRoomCount = 1;
-            Console.WriteLine("\nYou are looking around the hall, looks very hall-y");
+            Console.WriteLine("\nThe ship is on backup power and some of the doors seem to be locked shut, maybe if you get the main power back on they'll open.");
             Console.ReadLine();
-            Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot);
+            Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
         }
         static void ShipStats(ref int oxygenLevel, int reactorCore)
         {
@@ -666,9 +665,8 @@ namespace AstrophobiaFirst
             if (correct == 7)
             {
                 power = true;
-                Console.WriteLine("You did it!\nPress enter to continue.");
+                Console.WriteLine("You did it! The main power is now back on.\nPress enter to continue.");
                 Console.ReadLine();
-
             }
             else
             {
@@ -781,7 +779,7 @@ namespace AstrophobiaFirst
             Console.ReadLine();
         }
         //Task 3 is for in the oxygen room once that has been made
-        public static void Task3(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+        public static void Task3(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
             {
                 Console.WriteLine("You will be given a sequence of numbers to remember");
                 string temp;
@@ -823,7 +821,7 @@ namespace AstrophobiaFirst
                     {
                         Console.WriteLine("Oxygen Levels are critical");
                         Thread.Sleep(1000);
-                        Lose1(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        Lose1(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
 
                     }
                     else
@@ -834,7 +832,7 @@ namespace AstrophobiaFirst
 
                 Console.ReadLine();
             }
-            public static void Lose1(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+            public static void Lose1(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
             {
                 Console.WriteLine("\n\nYou feel yourself starting to lose consciousness and you know the end is near.\nYou can no longer hold yourself up to the oxygen terminal and fall to the ground.");
                 Console.ReadLine();
@@ -848,7 +846,7 @@ namespace AstrophobiaFirst
                 {
                     case "y":
                     case "Y":
-                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     case "n":
                     case "N":
@@ -858,7 +856,7 @@ namespace AstrophobiaFirst
                         break;
                 }
             }
-            public static void Win1(ref string []inventory, int oxygenLevel, int reactorCore, int inventorySlot)
+            public static void Win1(ref string []inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
             {
                 Console.Clear();
                 Console.WriteLine(".");
@@ -883,7 +881,7 @@ namespace AstrophobiaFirst
                 {
                     case "y":
                     case "Y":
-                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot);
+                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     case "n":
                     case "N":
