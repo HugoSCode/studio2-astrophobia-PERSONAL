@@ -565,33 +565,59 @@ namespace AstrophobiaFirst
             Console.ReadLine();
 
         }
+        // HUD for the ShipSystems status
         static void ShipSystems()
         {
+            bool Comms = false;
+            bool Thrusters = false;
+            bool Reactor = false;
+            bool ShipAi = true;
+            string LRC = "Enabled";
+            string Thrust = "Damaged";
+            string Core = "Disabled";
+            string Ai = "Active";
+
             string Border = new string('-', 44);
 
             Console.WriteLine(Border);
+            if (Comms == true)
+            {
+                LRC = "Disabled";
+            }
+            if (Thrusters == true)
+            {
+                Thrust = "Active";
+            }
+            if (Reactor == true)
+            {
+                Core = "Enabled";
+            }
+            if (ShipAi == false)
+            {
+                Ai = "Disabled";
+            }
 
             Console.Write($"|  Long Ranged Comms".PadRight(31));
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("[Disabled]".PadRight(12));
+            Console.Write($"[{LRC}]".PadRight(12));
             Console.ResetColor();
             Console.WriteLine("|");
 
             Console.Write($"|  Thrusters".PadRight(31));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("[Damaged]".PadRight(12));
+            Console.Write($"[{Thrust}]".PadRight(12));
             Console.ResetColor();
             Console.WriteLine("|");
 
             Console.Write($"|  Reactor Core".PadRight(31));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("[Damaged]".PadRight(12));
+            Console.Write($"[{Core}]".PadRight(12));
             Console.ResetColor();
             Console.WriteLine("|");
 
             Console.Write($"|  Ai System".PadRight(31));
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("[Active]".PadRight(12));
+            Console.Write($"[{Ai}]".PadRight(12));
             Console.ResetColor();
             Console.WriteLine("|");
 
