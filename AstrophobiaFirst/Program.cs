@@ -9,6 +9,7 @@ namespace AstrophobiaFirst
     {
         static void Main(string[] args)
         {
+            
             int oxygenLevel = 999;
             int reactorCore = 150;
             bool power = false;
@@ -809,7 +810,7 @@ namespace AstrophobiaFirst
         //Task 2 is for Engine/operation room once added
         public static void Task2(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
-            int Round = 2;
+            int Round = 3;
             int Correct = 0;
             string Q1 = "V2ROCKET";
             string Q2 = "311";
@@ -825,6 +826,13 @@ namespace AstrophobiaFirst
                     Console.WriteLine("--- You failed to fix the ships thruster =( ---");
                     Thread.Sleep(2000);
                     Lose2(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
+                    int frequency = 2000;
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Console.Beep(frequency, 300);
+                        frequency -= 200;
+                    }
                     break;
                 }
                 else
@@ -960,6 +968,13 @@ namespace AstrophobiaFirst
             }
             public static void Lose1(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
             {
+            int frequency = 2000;
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Beep(frequency, 300);
+                frequency -= 200;
+            }
                 Console.WriteLine("\n\nYou feel yourself starting to lose consciousness and you know the end is near.\nYou can no longer hold yourself up to the oxygen terminal and fall to the ground.");
                 Console.ReadLine();
                 Console.Clear();
