@@ -21,7 +21,8 @@ namespace AstrophobiaFirst
         static void Mainmenu(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             Console.Clear();
-            Console.WriteLine("Astrophobia");
+            Console.WriteLine("   __    ___  ____  ____  _____  ____  _   _  _____  ____  ____    __   \r\n  /__\\  / __)(_  _)(  _ \\(  _  )(  _ \\( )_( )(  _  )(  _ \\(_  _)  /__\\  \r\n /(__)\\ \\__ \\  )(   )   / )(_)(  )___/ ) _ (  )(_)(  ) _ < _)(_  /(__)\\ \r\n(__)(__)(___/ (__) (_)\\_)(_____)(__)  (_) (_)(_____)(____/(____)(__)(__)\n");
+            Console.WriteLine("        ~+                                    \r\n                                              \r\n                 *       +               .'.  \r\n           '                  |          |o|  \r\n       ()    .-.,=\"``\"=.    - o -       .'o'. \r\n             '=/_       \\     |         |.-.| \r\n          *   |  '=._    |              '   ' \r\n               \\     `=./`,        '     ( )  \r\n            .   '=.__.=' `='      *       )   \r\n   +                         +           ( )  \r\n        O      *        '       .             \n");
             Console.WriteLine("1    Play");
             Console.WriteLine("2    Help");
             Console.WriteLine("3    Options");
@@ -429,7 +430,7 @@ namespace AstrophobiaFirst
             string temp, playerChoice;
             oxygenLevel = oxygenLevel - 25;
 
-            Console.WriteLine("\nYou are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. There seems to be power in here as some computer lights flicker and there are beeping noises all around, it seems some parts of the ship are still working. Just like the dorm room and the hallway, the thick layer of dust on all of the controls would indicate that has not been any life here for quite some time. \nAre you truly alone floating through space… \nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
+            Console.WriteLine("\nYou are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. There seems to be power in here as some computer lights flicker and there are beeping noises all around, it seems some parts of the ship are still working. Just like the dorm room and the hallway, the thick layer of dust on all of the controls would indicate that has not been any life here for quite some time. \nAre you truly alone floating through space... \nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
             playerChoice = temp;
