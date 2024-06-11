@@ -9,7 +9,7 @@ namespace AstrophobiaFirst
     {
         static void Main(string[] args)
         {
-            int oxygenLevel = 735;
+            int oxygenLevel = 999;
             int reactorCore = 150;
             bool power = false;
             string[] inventory = new string[4]; //Reference this throughout the whole program
@@ -305,6 +305,7 @@ namespace AstrophobiaFirst
             string temp, playerChoice;
             int count = 0;
 
+            oxygenLevel = oxygenLevel - 25;
             Console.WriteLine("\nYou are in the hallway, most of the rooms are shut except for the dorm and the bridge down the end of the hallway. You could go in there or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\nMed\nStorage\nAirLock\n-----\nMenu\nInventory\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
@@ -404,18 +405,21 @@ namespace AstrophobiaFirst
         static void Med(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             Console.WriteLine("You are in Med");
+            oxygenLevel = oxygenLevel - 25;
             Console.ReadLine();
             Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
         }
         static void Storage(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             Console.WriteLine("You are in Storage");
+            oxygenLevel = oxygenLevel - 25;
             Console.ReadLine();
             Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
         }
         static void AirLock(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             Console.WriteLine("You are in AirLock");
+            oxygenLevel = oxygenLevel - 25;
             Console.ReadLine();
             Hall(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
         }
@@ -423,6 +427,7 @@ namespace AstrophobiaFirst
         {
             string currentRoom = "Bridge";
             string temp, playerChoice;
+            oxygenLevel = oxygenLevel - 25;
 
             Console.WriteLine("\nYou are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. There seems to be power in here as some computer lights flicker and there are beeping noises all around, it seems some parts of the ship are still working. Just like the dorm room and the hallway, the thick layer of dust on all of the controls would indicate that has not been any life here for quite some time. \nAre you truly alone floating through space… \nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
             temp = Console.ReadLine();
@@ -590,8 +595,10 @@ namespace AstrophobiaFirst
         static void ShipComputer(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string temp;
-            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn the main power back on \n4. Leave");
+            Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn the main power back on \n4. Fix Engines\n5. Fix Oxygen\n6. Leave");
             temp = Console.ReadLine();
+            int count = 0;
+            
             switch (temp)
             {
                 case "1":
@@ -603,10 +610,28 @@ namespace AstrophobiaFirst
                     ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "3":
-                    Task1(ref power);
+                    Task1(ref power, reactorCore);
+                    count++;
                     ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 case "4":
+                    Task2(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
+                    count++;
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
+                    break;
+                case "5":
+                    if (count == 2)
+                    {
+                        Task3(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You must complete other tasks first, press Enter to continue");
+                        Console.ReadLine();
+                    }
+                    ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
+                    break;
+                case "6":
                     LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
             }
@@ -696,7 +721,7 @@ namespace AstrophobiaFirst
             Console.ReadLine();
         }
         //Task 1 is for within the bridge/within the main computer
-        public static void Task1(ref bool power)
+        public static void Task1(ref bool power, int reactorCore)
         {
             Random rand = new Random();
             int[] numbers = new int[7];
@@ -761,7 +786,8 @@ namespace AstrophobiaFirst
             if (correct == 7)
             {
                 power = true;
-                Console.WriteLine("You did it! The main power is now back on.\nPress enter to continue.");
+                Console.WriteLine("You did it! The ships energy has gone up by 200!\nPress enter to continue.");
+                reactorCore = reactorCore + 200;
                 Console.ReadLine();
             }
             else
@@ -773,16 +799,16 @@ namespace AstrophobiaFirst
                 switch (temp)
                 {
                     case "Y":
-                        Task1(ref power);
+                        Task1(ref power, reactorCore);
                         break;
 
                 }
             }
         }
         //Task 2 is for Engine/operation room once added
-        public static void Task2()
+        public static void Task2(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
-            int Round = 3;
+            int Round = 2;
             int Correct = 0;
             string Q1 = "V2ROCKET";
             string Q2 = "311";
@@ -796,6 +822,7 @@ namespace AstrophobiaFirst
                 {
                     Console.WriteLine("--- You failed to fix the ships thruster =( ---");
                     Thread.Sleep(2000);
+                    Lose2(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
                 }
                 else
@@ -814,7 +841,7 @@ namespace AstrophobiaFirst
                     if (Answer1 == Q1)
                     {
                         Console.WriteLine("Correct!");
-                        Correct += 1;
+                        Correct++;
                     }
                     Console.WriteLine();
                     Console.WriteLine("Question 2");
@@ -827,7 +854,7 @@ namespace AstrophobiaFirst
                     if (Answer2 == Q2)
                     {
                         Console.WriteLine("Correct!");
-                        Correct += 1;
+                        Correct++;
                     }
                     Console.WriteLine();
                     Console.WriteLine("Question 3");
@@ -840,7 +867,7 @@ namespace AstrophobiaFirst
                     if (Answer3 == Q3)
                     {
                         Console.WriteLine("Correct!");
-                        Correct += 1;
+                        Correct++;
                     }
                     Console.WriteLine();
                     Console.WriteLine("Question 4");
@@ -852,7 +879,7 @@ namespace AstrophobiaFirst
                     if (Answer4 == Q4)
                     {
                         Console.WriteLine("Correct!");
-                        Correct += 1;
+                        Correct++;
                     }
                     Console.WriteLine();
                     Console.WriteLine("Question 5");
@@ -864,13 +891,14 @@ namespace AstrophobiaFirst
                     if (Answer5 == Q5)
                     {
                         Console.WriteLine("Correct!");
-                        Correct += 1;
+                        Correct++;
                     }
                 }
                 Round++;
 
             } while (Correct != Round || Correct < Round);
-            Console.WriteLine($"You got {Correct} of 5 answers correct and have successfully fixed the ships thruster =)");
+            Console.WriteLine($"You got {Correct} of 5 answers correct and have successfully fixed the ships thruster =)\nThe ship has gained 200 energy");
+            reactorCore = reactorCore + 200;
             Thread.Sleep(2000);
             Console.ReadLine();
         }
@@ -952,7 +980,32 @@ namespace AstrophobiaFirst
                         break;
                 }
             }
-            public static void Win1(ref string []inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
+            public static void Lose2(ref string[] inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
+            {
+                Console.WriteLine("\n\nYou got stuck in the thruster, there is no escape.");
+                Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("You feel your body being torn apart...");
+                Thread.Sleep(2000);
+                Console.Clear();
+                Console.WriteLine("Achievement unlocked - Blown away\n  -Failed the game gruesomely");
+                Console.Write("Unfortunatly you have failed this mission. Would you like to return to main menu? (y or n):  ");
+                string temp = Console.ReadLine();
+                switch (temp)
+                {
+                    case "y":
+                    case "Y":
+                        Mainmenu(ref inventory, oxygenLevel, reactorCore, inventorySlot, power);
+                        break;
+                    case "n":
+                    case "N":
+                        GameEnd();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        public static void Win1(ref string []inventory, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
             {
                 Console.Clear();
                 Console.WriteLine(".");
@@ -970,7 +1023,7 @@ namespace AstrophobiaFirst
                 Console.WriteLine("\nPress enter to continue");
                 Console.ReadLine();
                 Console.Clear();
-                Console.WriteLine("You finished the game:\n\n                      Achevement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.");
+                Console.WriteLine("You finished the game:\n\n                      Achievement Unlocked - Linear Completion!\n                           -Complete the game it was intended to be completed.");
                 Console.Write("Would you like to return to main menu to play again? (y or n):  ");
                 string temp = Console.ReadLine();
                 switch (temp)
