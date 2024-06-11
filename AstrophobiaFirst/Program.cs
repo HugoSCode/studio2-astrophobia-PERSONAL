@@ -815,9 +815,10 @@ namespace AstrophobiaFirst
             string Q3 = "SATURN";
             string Q4 = "VENUS";
             string Q5 = "1969";
-            Console.ReadLine();
+
             do
             {
+                Round++;
                 if (Round > 5)
                 {
                     Console.WriteLine("--- You failed to fix the ships thruster =( ---");
@@ -894,9 +895,9 @@ namespace AstrophobiaFirst
                         Correct++;
                     }
                 }
-                Round++;
+                
 
-            } while (Correct != Round || Correct < Round);
+            } while ((Correct != Round) && (Correct < Round));
             Console.WriteLine($"You got {Correct} of 5 answers correct and have successfully fixed the ships thruster =)\nThe ship has gained 200 energy");
             reactorCore = reactorCore + 200;
             Thread.Sleep(2000);
