@@ -304,7 +304,7 @@ namespace AstrophobiaFirst
             string currentRoom = "Hall";
             string temp, playerChoice;
 
-            Console.WriteLine("\nYou are in the hallway, most of the rooms are shut except for the dorm and the bridge down the end of the hallway. You could go in there or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\n-----\nMenu\nInventory\n");
+            Console.WriteLine("\nYou are in the hallway, most of the rooms are shut except for the dorm and the bridge down the end of the hallway. You could go in there or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\nMed\nStorage\nAirLock\n-----\nMenu\nInventory\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
             playerChoice = temp;
@@ -321,6 +321,24 @@ namespace AstrophobiaFirst
                 case "BRIDGE":
                     {
                         Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
+                        break;
+                    }
+                case "GO TO MED":
+                case "MED":
+                    {
+                        Med(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
+                        break;
+                    }
+                case "GO TO STORAGE":
+                case "Storage":
+                    {
+                        Storage(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
+                        break;
+                    }
+                case "GO TO AIRLOCK":
+                case "AIRLOCK":
+                    {
+                        AirLock(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         break;
                     }
                 case "LOOK":
@@ -349,6 +367,21 @@ namespace AstrophobiaFirst
                         break;
                     }
             }
+        }
+        static void Med(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
+        {
+            Console.WriteLine("You are in Med");
+            Console.ReadLine();
+        }
+        static void Storage(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
+        {
+            Console.WriteLine("You are in Storage");
+            Console.ReadLine();
+        }
+        static void AirLock(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
+        {
+            Console.WriteLine("You are in AirLock");
+            Console.ReadLine();
         }
         static void Bridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
@@ -712,7 +745,7 @@ namespace AstrophobiaFirst
         //Task 2 is for Engine/operation room once added
         public static void Task2()
         {
-            int Round = 2;
+            int Round = 3;
             int Correct = 0;
             string Q1 = "V2ROCKET";
             string Q2 = "311";
