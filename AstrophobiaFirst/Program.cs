@@ -190,7 +190,7 @@ namespace AstrophobiaFirst
             string temp = null;
             string currentRoom = "Dorm";
 
-            if (currentRoom == "Dorm" && torch == false)
+            if (currentRoom == "Dorm" && torch == false && dormRoomCount == 0)
             {
                 Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
@@ -220,7 +220,37 @@ namespace AstrophobiaFirst
                         break;
                     }
             }
-            if (currentRoom == "Dorm" && torch == true && dormRoomCount >=2)
+            if (currentRoom == "Dorm" && torch == true && dormRoomCount == 0)
+            {
+                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, \nthrough the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\nInventory\n");
+                temp = Console.ReadLine();
+                temp = temp.ToUpper();
+                switch (temp)
+                {
+                    case "LOOK":
+                        {
+                            LookDorm(ref torch, oxygenLevel, reactorCore, power);
+                            break;
+                        }
+                    case "LEAVE":
+                        dormRoomCount++;
+                        Hall(ref torch, dormRoomCount, oxygenLevel, reactorCore, power);
+                        break;
+                    case "MENU":
+                        {
+                            IGmenu(ref torch, currentRoom, dormRoomCount, oxygenLevel, reactorCore, power);
+                            break;
+                        }
+                    case "INVENTORY":
+                        {
+                            Console.WriteLine("Your trusty torch is all you need...(Press any Key)");
+                            Console.ReadLine();
+                            Dorm(ref torch, dormRoomCount, oxygenLevel, reactorCore, power);
+                            break;
+                        }
+                }
+            }
+            else if (currentRoom == "Dorm" && torch == true && dormRoomCount >= 2)
             {
                 Console.WriteLine("\nYou are in the Dorm \nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
@@ -252,36 +282,7 @@ namespace AstrophobiaFirst
                         }
                 }
             }
-            else if (currentRoom == "Dorm" && torch == true && dormRoomCount == 0)
-            {
-                Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, \nthrough the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\nInventory\n");
-                temp = Console.ReadLine();
-                temp = temp.ToUpper();
-                switch (temp)
-                {
-                    case "LOOK":
-                        {
-                            LookDorm(ref torch, oxygenLevel, reactorCore,  power);
-                            break;
-                        }
-                    case "LEAVE":
-                        dormRoomCount++;
-                        Hall(ref torch, dormRoomCount, oxygenLevel, reactorCore,  power);
-                        break;
-                    case "MENU":
-                        {
-                            IGmenu(ref torch, currentRoom, dormRoomCount, oxygenLevel, reactorCore,  power);
-                            break;
-                        }
-                    case "INVENTORY":
-                        {
-                            Console.WriteLine("Your trusty torch is all you need...(Press any Key)");
-                            Console.ReadLine();
-                            Dorm(ref torch, dormRoomCount, oxygenLevel, reactorCore, power);
-                            break;
-                        }
-                }
-            }
+            
             else { }
         }
         static void Hall(ref bool torch, int dormRoomCount, int oxygenLevel, int reactorCore,  bool power)
@@ -303,6 +304,7 @@ namespace AstrophobiaFirst
                     case "GO TO DORM":
                     case "DORM":
                         {
+                            dormRoomCount++;
                             Dorm(ref torch, dormRoomCount, oxygenLevel, reactorCore,  power);
                             break;
                         }
@@ -554,7 +556,7 @@ namespace AstrophobiaFirst
                     ShipComputer(ref torch, dormRoomCount, oxygenLevel, reactorCore,  power);
                     break;
                 case "5":
-                    if (count == 2)
+                    if (count >= 2)
                     {
                         Task3(ref torch, oxygenLevel, reactorCore,  power);
                     }
