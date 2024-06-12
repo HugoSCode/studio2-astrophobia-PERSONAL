@@ -211,7 +211,7 @@ namespace AstrophobiaFirst
                     {
                         if (currentRoom == "Dorm" && inventory[inventorySlot] == null)
                         {
-                            Console.WriteLine("You cannot see, so you stumble around for a little bit. making no progress, you may want to see if you can find something to light the way");
+                            Console.WriteLine("You cannot see, so you stumble around for a little bit. Making no progress, you may want to see if you can find something to light the way.");
                             Dorm(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                         }
                         break;
@@ -577,19 +577,14 @@ namespace AstrophobiaFirst
         static void LookBridge(ref string[] inventory, int dormRoomCount, int oxygenLevel, int reactorCore, int inventorySlot, bool power)
         {
             string temp;
-            Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens. \nYou spot a manual on the controls to your left. \nWhat would you like to do? \n1. Read Manual \n2. Check computer \n3. Stop looking");
+            Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens. \nYou spot a manual on the controls to your left. \nWhat would you like to do? \n1. Check computer \n2. Stop looking");
             temp = Console.ReadLine();
             switch (temp)
             {
                 case "1":
-                    Console.WriteLine("This does nothing right now \nPress enter");
-                    Console.ReadLine();
-                    LookBridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
-                    break;
-                case "2":
                     ShipComputer(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
-                case "3":
+                case "2":
                     Bridge(ref inventory, dormRoomCount, oxygenLevel, reactorCore, inventorySlot, power);
                     break;
             }
