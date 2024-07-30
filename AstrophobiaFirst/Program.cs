@@ -7,6 +7,11 @@ namespace AstrophobiaFirst
 {
     internal class Program
     {
+        public bool
+                Comms = false,
+                Thrusters = false,
+                Reactor = false,
+                ShipAi = false;
         static void Main(string[] args)
         {
             
@@ -596,37 +601,27 @@ namespace AstrophobiaFirst
             Console.ReadLine();
 
         }
-        // HUD for the ShipSystems status
-        static void ShipSystems()
+        // ShipSystems status window
+        static void ShipSystems(ref bool Comms, ref bool Thrusters, bool Reactor, bool ShipAi)
         {
-            bool Comms = false;
-            bool Thrusters = false;
-            bool Reactor = false;
-            bool ShipAi = true;
-            string LRC = "Enabled";
-            string Thrust = "Damaged";
-            string Core = "Disabled";
-            string Ai = "Active";
-
-            string Border = new string('-', 44);
+            string LRC, Thrust, Core, Ai, A = "Active", D = "Disabled", Border = new string('-', 44);
 
             Console.WriteLine(Border);
             if (Comms == true)
-            {
-                LRC = "Disabled";
-            }
+                LRC = A;
+            else
+                LRC = D;
             if (Thrusters == true)
-            {
-                Thrust = "Active";
-            }
+                Thrust = A;
+            else
+                Thrust = D;
             if (Reactor == true)
-            {
-                Core = "Enabled";
-            }
-            if (ShipAi == false)
-            {
-                Ai = "Disabled";
-            }
+                Core = A;
+            else
+                Core = D;
+            if (ShipAi == true)
+                Ai = A;
+            else Ai = D;
 
             Console.Write($"|  Long Ranged Comms".PadRight(31));
             Console.ForegroundColor = ConsoleColor.DarkGray;
