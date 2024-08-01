@@ -56,6 +56,11 @@ namespace AstrophobiaFirst
                 case "exit":
                     GameEnd();
                     break;
+                default:
+                    {
+                        Mainmenu(); 
+                        break;
+                    }
             }
         }
         static void Help()
@@ -127,12 +132,25 @@ namespace AstrophobiaFirst
             Console.WriteLine("*\t\t  <Press>\t\t *");
             Console.WriteLine("* (1) To Resume   \t\t\t *\n* (2) If you wish to Restart\t\t *\n* (3) To go to the Main Menu\t\t *\n* (4) If you would like to Exit the game *");
             Console.WriteLine(Border);
-            string Input = Console.ReadLine();
+            bool validInput = false;
+            int Input = 0;      
+            while (!validInput)        //Stops game from crashing when something other than 1-4 is entered
+            {
+                string temp = Console.ReadLine();
+                if (!int.TryParse(temp, out Input) || Input > 4 || Input < 1)
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+                else
+                {
+                    validInput = true;
+                }
+            }
             Console.WriteLine();
 
             switch (Input)
             {
-                case "1":
+                case 1:
                     if (currentRoom == "Dorm")
                     {
                         Dorm(   );
@@ -146,15 +164,15 @@ namespace AstrophobiaFirst
                         Bridge();
                     }
                     break;
-                case "2":
+                case 2:
                     {
                         Intro();
                         break;
                     }
-                case "3":
+                case 3:
                     Mainmenu();
                     break;
-                case "4":
+                case 4:
                     GameEnd();
                     break;
             }
@@ -195,7 +213,7 @@ namespace AstrophobiaFirst
         {
             string temp = null;
             string currentRoom = "Dorm";
-
+            Console.Clear();
             if (currentRoom == "Dorm" && torch == false && dormRoomCount == 0)
             {
                 Console.WriteLine("You awaken in the dorm and it is dark. Maybe there is something in the room to help you see better.\nWhat would you like to do, your options are:\nLook\nLeave\nMenu\nMap");
@@ -260,6 +278,7 @@ namespace AstrophobiaFirst
             }
             if (currentRoom == "Dorm" && torch == true && dormRoomCount == 0)
             {
+                Console.Clear();
                 Console.WriteLine("You can now see around the room. \nThere are many beds but you seem to be the only one here. \nAre you alone ? \nMaybe you will find answers if you explore outside of the room, \nthrough the door in front of you that seems to lead to a hallway... \nLook\nLeave\nMenu\nInventory\n");
                 temp = Console.ReadLine();
                 temp = temp.ToUpper();
@@ -322,6 +341,7 @@ namespace AstrophobiaFirst
             }
             else if (currentRoom == "Dorm" && torch == true && dormRoomCount >= 2)
             {
+                Console.Clear();
                 Console.WriteLine("\nYou are in the Dorm \nLook\nLeave\nMenu\n");
                 temp = Console.ReadLine();
                 temp = temp.ToUpper();
@@ -392,7 +412,7 @@ namespace AstrophobiaFirst
             string currentRoom = "Hall";
             string temp, playerChoice;
             int count = 0;
-
+            Console.Clear();
             oxygenLevel = oxygenLevel - 25;
             Console.WriteLine("\nYou are in the hallway, most of the rooms are shut except for the dorm and the bridge down the end of the hallway. You could go in there or you could go back into the dorm.\nYour options are:\nLook\nEnter one of the following rooms:\n-----\nDorm\nBridge\nMed\nStorage\nAirLock\n-----\nMenu\nInventory\n");
             temp = Console.ReadLine();
@@ -517,6 +537,7 @@ namespace AstrophobiaFirst
         }
         static void Med()
         {
+            Console.Clear();
             Console.WriteLine("You are in Med");
             oxygenLevel = oxygenLevel - 25;
             Console.ReadLine();
@@ -524,6 +545,7 @@ namespace AstrophobiaFirst
         }
         static void Storage()
         {
+            Console.Clear();
             Console.WriteLine("You are in Storage");
             oxygenLevel = oxygenLevel - 25;
             Console.ReadLine();
@@ -531,6 +553,7 @@ namespace AstrophobiaFirst
         }
         static void AirLock()
         {
+            Console.Clear();
             Console.WriteLine("You are in AirLock");
             oxygenLevel = oxygenLevel - 25;
             Console.ReadLine();
@@ -541,7 +564,7 @@ namespace AstrophobiaFirst
             string currentRoom = "Bridge";
             string temp, playerChoice;
             oxygenLevel = oxygenLevel - 25;
-
+            Console.Clear();
             Console.WriteLine("\nYou are in the bridge, the brain of the ship where messages are received and commands are sent throughout the rest of the vessel. There seems to be power in here as some computer lights flicker and there are beeping noises all around, it seems some parts of the ship are still working. Just like the dorm room and the hallway, the thick layer of dust on all of the controls would indicate that has not been any life here for quite some time. \nAre you truly alone floating through space... \nYour options are:\nLook\nShip Stats\nLeave\nMenu\n");
             temp = Console.ReadLine();
             temp = temp.ToUpper();
@@ -606,10 +629,16 @@ namespace AstrophobiaFirst
                         Bridge();
                         break;
                     }
+                default:
+                    {
+                        Bridge(); 
+                        break;
+                    }
             }
         }
         static void BridgeIntro()
         {
+            Console.Clear();
             bool BridgeIntro = false;
             if (BridgeIntro == false)
             {
@@ -642,7 +671,7 @@ namespace AstrophobiaFirst
             string temp;
             int dormRoomCount = 1;
             string currentRoom = "Dorm", playerChoice = null;
-
+            Console.Clear();
             Console.WriteLine("\nYou have looked around the room");
             if (currentRoom == "Dorm" && torch == false)
             {
@@ -681,6 +710,7 @@ namespace AstrophobiaFirst
         }
         static void LookBridge()
         {
+            Console.Clear();
             string temp;
             Console.WriteLine("In front of you to your left and right are the two pilot seats, various buttons and knobs in front of each. To your left is a computer console displaying the ship's status. To your right are a few more consoles with flashing ERROR screens. \nYou spot a manual on the controls to your left. \nWhat would you like to do? \n1. Check computer \n2. Stop looking");
             temp = Console.ReadLine();
@@ -696,6 +726,7 @@ namespace AstrophobiaFirst
         }
         static void ShipComputer()
         {
+            Console.Clear();
             string temp;
             Console.WriteLine("You look over at the computer console, there are a couple things you can do here. \n1. Check oxygen levels and reactor core fuel \n2. Check ship health \n3. Turn the main power back on \n4. Fix Engines\n5. Fix Oxygen\n6. Leave");
             temp = Console.ReadLine();
@@ -740,6 +771,7 @@ namespace AstrophobiaFirst
         }
         static void LookHall()
         {
+            Console.Clear();
             int dormRoomCount = 1;
             Console.WriteLine("\nThe ship is on backup power and some of the doors seem to be locked shut, maybe if you get the main power back on they'll open.");
             Console.ReadLine();
@@ -747,6 +779,7 @@ namespace AstrophobiaFirst
         }
         static void ShipStats()
         {
+            Console.Clear();
             string Border = new string('*', 25);
 
             Thread.Sleep(100);
@@ -819,7 +852,7 @@ namespace AstrophobiaFirst
             int[] numbers = new int[7];
             int[] user = new int[7];
             string temp;
-            int comp, guess, correct = 0;
+            int comp, guess=0, correct = 0;
 
             Console.WriteLine("The ship is currently on backup power, which is why some doors are shut. There is a security lock on the ship's main power, you will have to hack it open. \nThe computer will display 7 numbers for a couple seconds, then clear the screen. You will have to remember what the numbers were then type them out one at a time in the correct spot. You need to remember at least 6 to progress.\nPress enter to begin");
             Console.ReadLine();
@@ -845,9 +878,20 @@ namespace AstrophobiaFirst
             Console.WriteLine("What were the numbers?");
             for (int i = 0; i < user.Length; i++)
             {
-                Console.WriteLine($"Guess {i + 1}:");
-                temp = Console.ReadLine();
-                guess = Convert.ToInt32(temp);
+                bool validInput = false;
+                while (!validInput)    //Stops game from crashing
+                {
+                    Console.WriteLine($"Guess {i + 1}:");
+                    temp = Console.ReadLine();
+                    if (!int.TryParse(temp, out guess))
+                    {
+                        Console.WriteLine("Must enter a number");
+                    }
+                    else
+                    {
+                        validInput = true;
+                    }
+                }
                 user[i] = guess;
             }
             Console.WriteLine();
